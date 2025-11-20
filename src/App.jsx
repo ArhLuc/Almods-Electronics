@@ -10,6 +10,7 @@ const COLORS = {
 };
 
 // Data for 8 specific products
+// The specifications are top-level keys in the object.
 const productsData = [
     { 
         id: 'g5k', 
@@ -160,6 +161,51 @@ const CustomStyles = () => (
                 gap: 2rem;
             }
 
+            /* Responsive Logo Size */
+            .header-logo {
+                height: 45px; /* Default/Mobile height */
+                transition: height 0.3s ease;
+            }
+            
+            /* --- Responsive Hero Image Style for Full Screen Impact --- */
+            .hero-image-container {
+                position: relative;
+                width: 100%;
+                /* Desktop Height: 50% of viewport height for high impact */
+                height: 50vh; 
+                overflow: hidden;
+            }
+            .hero-image {
+                width: 100%;
+                height: 100%; 
+                object-fit: cover; /* Ensure it covers the area */
+                transition: transform 0.3s ease;
+            }
+            .hero-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                /* Dark overlay for text contrast and legibility */
+                background-color: rgba(0, 0, 0, 0.45); 
+            }
+            .hero-title {
+                color: ${COLORS.textLight}; /* White text */
+                font-size: 3.5rem;
+                font-weight: 800;
+                margin-bottom: 1rem;
+                line-height: 1.2;
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            }
+            /* --- END Hero Styles --- */
+
+
             /* Responsive Menu Icon (Hamburger) Styling */
             .menu-icon {
                 display: none; /* Hidden on desktop */
@@ -183,6 +229,7 @@ const CustomStyles = () => (
                 background-color: #ffffff; 
                 padding: 1.5rem;
                 border-radius: 8px;
+                margin-bottom: 1rem;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); 
             }
             .feature-highlight-value {
@@ -190,16 +237,6 @@ const CustomStyles = () => (
                 line-height: 1.5;
             }
 
-            /* Desktop Viewpoint Adjustments */
-            @media (min-width: 769px) {
-                .menu-icon {
-                    display: none;
-                }
-                .specs-grid-desktop {
-                    grid-template-columns: 1fr 1fr;
-                }
-            }
-            
             /* Mobile Viewpoint Adjustments */
             @media (max-width: 768px) {
                 .menu-icon {
@@ -235,9 +272,23 @@ const CustomStyles = () => (
                     grid-template-columns: 1fr !important;
                 }
                 
-                .product-detail-flex {
-                    flex-direction: column;
-                    gap: 2rem !important;
+                /* Reduce hero container height on mobile */
+                .hero-image-container {
+                    height: 35vh; 
+                }
+                .hero-title {
+                    font-size: 2rem;
+                }
+            }
+            /* Desktop Viewpoint Adjustments (min-width: 769px) */
+            @media (min-width: 769px) {
+                /* Increase Logo Size for desktop */
+                .header-logo {
+                    height: 60px; 
+                }
+                 /* Ensure 2 columns for specs on desktop */
+                 .specs-grid-desktop {
+                    grid-template-columns: 1fr 1fr;
                 }
             }
         `}
@@ -247,7 +298,7 @@ const CustomStyles = () => (
 // --- 3. HEADER COMPONENT (White Background) ---
 const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPage }) => {
     const handleNavClick = (page) => {
-        setCurrentPage({ page, product: null });
+        setCurrentPage(page);
         setIsMenuOpen(false); // Close menu on mobile after click
     };
 
@@ -266,15 +317,21 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
                 justifyContent: 'space-between',
                 alignItems: 'center'
             }} className="container">
-                <h1 style={{ 
-                    fontSize: '1.5rem', 
-                    fontWeight: '800', 
-                    margin: 0, 
-                    cursor: 'pointer',
-                    color: COLORS.primary // Dark Logo/Title
-                }} onClick={() => setCurrentPage({ page: 'home', product: null })}>
-                    Almods Electronics
-                </h1>
+                
+                {/* LOGO IMAGE REPLACING TEXT - Responsive height managed by CSS class */}
+                <img 
+                    src="/images/almodslogo.png"
+                    alt="Almods Electronics Logo"
+                    onClick={() => setCurrentPage('home')}
+                    className="header-logo" // Add class to target in CSS
+                    style={{
+                        width: 'auto', // Maintain aspect ratio
+                        maxWidth: '100%', // Ensures it doesn't overflow on tiny screens
+                        margin: 0,
+                        cursor: 'pointer',
+                        borderRadius: '5px' 
+                    }}
+                />
                 
                 {/* Mobile Menu Icon - Dark Bars on White Background */}
                 <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -297,8 +354,8 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
                             style={{
                                 color: isMenuOpen ? COLORS.textLight : COLORS.textDark, // Dark text on desktop
                                 textDecoration: 'none',
-                                fontWeight: currentPage.page === item.page ? '700' : '500',
-                                borderBottom: currentPage.page === item.page ? `2px solid ${COLORS.secondary}` : 'none', // Red accent
+                                fontWeight: currentPage === item.page ? '700' : '500',
+                                borderBottom: currentPage === item.page ? `2px solid ${COLORS.secondary}` : 'none', // Red accent
                                 paddingBottom: '0.25rem',
                                 transition: 'all 0.1s',
                                 cursor: 'pointer',
@@ -348,11 +405,10 @@ const Footer = () => {
 // --- 5. PAGE COMPONENTS (For PageRouter) ---
 
 // Used for Home Page top-selling products (simplified card)
-const FeatureProductCard = ({ product, onExploreClick }) => (
-    <div className="card" style={{ textAlign: 'left', padding: '1.5rem', cursor: 'pointer' }} onClick={() => onExploreClick(product)}>
-        {/* Adjusted from 1.4rem to 1.1rem */}
-        <h3 style={{ color: COLORS.primary, fontSize: '1.1rem', marginBottom: '0.5rem' }}>{product.name}</h3>
-        <p style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: '#555' }}>{product.detail}</p>
+const FeatureProductCard = ({ title, description }) => (
+    <div className="card" style={{ textAlign: 'left', padding: '1.5rem' }}>
+        <h3 style={{ color: COLORS.primary, fontSize: '1.4rem', marginBottom: '0.5rem' }}>{title}</h3>
+        <p style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: '#555' }}>{description}</p>
         <button className="button" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>View Detail</button>
     </div>
 );
@@ -365,98 +421,97 @@ const AdvantagePoint = ({ title, description }) => (
 );
 
 
-const HomePage = ({ setCurrentPage }) => {
-    // Helper function to simulate navigating to the detail page from the Home page
-    const handleExploreClick = (product) => {
-        setCurrentPage({ page: 'products', product });
-    };
-    
-    // Pass a simplified product object to FeatureProductCard, and then handle navigation
-    const topProducts = [productsData[0], productsData[1], productsData[2]];
-
-    return (
-        <div>
-            {/* Hero Section */}
-            <div style={{ 
-                textAlign: 'center', 
-                padding: '6rem 1rem 4rem 1rem',
-                background: `linear-gradient(180deg, ${COLORS.background} 0%, #f7f7f7 100%)`
-            }}>
-                <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <h2 style={{ 
-                        color: COLORS.primary, 
-                        fontSize: '3.2rem', 
-                        fontWeight: '800',
-                        marginBottom: '0.5rem',
-                        lineHeight: '1.2'
-                    }}>
-                        Voltage Redefined. Absolute Stability.
+const HomePage = () => (
+    <div>
+        {/* --- Hero Section: Full-Width Image with Text Overlay --- */}
+        <div className="hero-image-container">
+            <img 
+                // Placeholder URL for a high-resolution, wide image
+                src="/images/image copy 2.png"
+                alt="Large hero image representing power stabilization technology"
+                className="hero-image" 
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/1920x800/1D1D1F/FF3B30?text=POWER+STABILITY'; }}
+            />
+            {/* Text Overlay for visibility */}
+            <div className="hero-overlay">
+                <div className="container">
+                    <h2 className="hero-title">
+                        NOW DEALS IN SOLAR PLANTS
                     </h2>
                     <p style={{ 
                         fontSize: '1.2rem', 
                         lineHeight: '1.6', 
-                        margin: '1.5rem 0 2rem 0',
-                        color: '#555'
+                        // Adjusted margins for overlay
+                        margin: '0 auto 2rem auto',
+                        color: COLORS.textLight, 
+                        maxWidth: '600px',
+                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)'
                     }}>
-                        Safeguarding your systems with <strong style={{color: COLORS.secondary}}>Almods Digital Precision Stabilizers</strong>—where performance meets uncompromised reliability.
+                        Safeguarding your systems with <strong style={{color: COLORS.secondary}}>Almods  Stabilizers & Servo</strong>—where performance meets uncompromised reliability.
                     </p>
-                    <button className="button" style={{ fontSize: '1.1rem' }} onClick={() => setCurrentPage({ page: 'products', product: null })}>
+                    <button className="button" style={{ fontSize: '1.1rem' }}>
                         Discover Our Stabilizers
                     </button>
                 </div>
             </div>
-            
-            {/* Top Selling Products Section */}
-            <div className="container" style={{ padding: '4rem 0' }}>
+        </div>
+        {/* --- End Hero Section --- */}
+        
+        {/* Top Selling Products Section */}
+        <div className="container" style={{ padding: '4rem 0' }}> {/* Added 4rem top padding for spacing after the large hero */}
+            <h2 style={{ 
+                textAlign: 'center', 
+                color: COLORS.primary, 
+                fontSize: '2.2rem', 
+                marginBottom: '2rem' 
+            }}>
+                Top Selling Products
+            </h2>
+            <div className="card-grid">
+                <FeatureProductCard 
+                    title={productsData[0].name} 
+                    description={productsData[0].detail} 
+                />
+                <FeatureProductCard 
+                    title={productsData[1].name} 
+                    description={productsData[1].detail} 
+                />
+                <FeatureProductCard 
+                    title={productsData[2].name} 
+                    description={productsData[2].detail} 
+                />
+            </div>
+        </div>
+
+        {/* The Almods Advantage Section */}
+        <div style={{ backgroundColor: '#f9f9f9', padding: '4rem 0' }}>
+            <div className="container">
                 <h2 style={{ 
                     textAlign: 'center', 
                     color: COLORS.primary, 
                     fontSize: '2.2rem', 
                     marginBottom: '2rem' 
                 }}>
-                    Top Selling Products
+                    The Almods Advantage
                 </h2>
                 <div className="card-grid">
-                    {topProducts.map(product => (
-                        <FeatureProductCard 
-                            key={product.id}
-                            product={product} 
-                            onExploreClick={handleExploreClick} 
-                        />
-                    ))}
-                </div>
-            </div>
-
-            {/* The Almods Advantage Section */}
-            <div style={{ backgroundColor: '#f9f9f9', padding: '4rem 0' }}>
-                <div className="container">
-                    <h2 style={{ 
-                        textAlign: 'center', 
-                        color: COLORS.primary, 
-                        fontSize: '2.2rem', 
-                        marginBottom: '2rem' 
-                    }}>
-                        The Almods Advantage
-                    </h2>
-                    <div className="card-grid">
-                        <AdvantagePoint 
-                            title="Aerospace-Grade Components" 
-                            description="Sourced from certified suppliers, guaranteeing internal component stability under continuous heavy load." 
-                        />
-                        <AdvantagePoint 
-                            title="AI-Enhanced Diagnostics" 
-                            description="Predictive failure detection monitors component health, minimizing unexpected downtime and maximizing lifespan." 
-                        />
-                        <AdvantagePoint 
-                            title="Global Compliance Certified" 
-                            description="Meets all major international safety and quality standards (UL, CE, ISO) for global integration." 
-                        />
-                    </div>
+                    <AdvantagePoint 
+                        title="Aerospace-Grade Components" 
+                        description="Sourced from certified suppliers, guaranteeing internal component stability under continuous heavy load." 
+                    />
+                    <AdvantagePoint 
+                        title="AI-Enhanced Diagnostics" 
+                        description="Predictive failure detection monitors component health, minimizing unexpected downtime and maximizing lifespan." 
+                    />
+                    <AdvantagePoint 
+                        title="Global Compliance Certified" 
+                        description="Meets all major international safety and quality standards (UL, CE, ISO) for global integration." 
+                    />
                 </div>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 // Component for displaying a single product in the grid
 const ProductGridCard = ({ product, onExploreClick }) => (
@@ -466,9 +521,8 @@ const ProductGridCard = ({ product, onExploreClick }) => (
         display: 'flex', 
         flexDirection: 'column', 
         height: '100%', 
-        transition: 'box-shadow 0.3s',
-        cursor: 'pointer'
-    }} onClick={() => onExploreClick(product)}>
+        transition: 'box-shadow 0.3s' 
+    }}>
         <img 
             src={product.image} 
             alt={product.name} 
@@ -483,10 +537,9 @@ const ProductGridCard = ({ product, onExploreClick }) => (
             // Fallback for failed image load
             onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/aaaaaa/333333?text=Product+Image'; }}
         />
-        {/* Adjusted from 1.2rem to 1.1rem */}
         <h3 style={{ 
             color: COLORS.primary, 
-            fontSize: '1.1rem', 
+            fontSize: '1.2rem', 
             marginBottom: '0.5rem', 
             fontWeight: '700' 
         }}>
@@ -502,8 +555,7 @@ const ProductGridCard = ({ product, onExploreClick }) => (
         </p>
         <button 
             className="button" 
-            // The onClick on the card already handles navigation, but we keep the button for styling
-            onClick={(e) => { e.stopPropagation(); onExploreClick(product); }} 
+            onClick={() => onExploreClick(product)} 
             style={{ 
                 padding: '0.6rem 1rem', 
                 fontSize: '0.9rem', 
@@ -515,40 +567,11 @@ const ProductGridCard = ({ product, onExploreClick }) => (
     </div>
 );
 
-// Component for the main Product Listing page
-const ProductsPage = ({ setCurrentPage }) => {
-    const handleExploreClick = (product) => {
-        setCurrentPage({ page: 'products', product });
-    };
-
-    return (
-        <div className="container" style={{ padding: '4rem 0' }}>
-            <h2 style={{ 
-                color: COLORS.primary, 
-                fontSize: '2.5rem', 
-                fontWeight: '800',
-                marginBottom: '2rem',
-                textAlign: 'center'
-            }}>
-                Our Complete Stabilizer Range
-            </h2>
-            <div className="card-grid">
-                {productsData.map(product => (
-                    <ProductGridCard 
-                        key={product.id} 
-                        product={product} 
-                        onExploreClick={handleExploreClick} 
-                    />
-                ))}
-            </div>
-        </div>
-    );
-};
-
 // Component for the single product detail view
 const ProductDetails = ({ product, onBackClick }) => {
     // Define the specifications to display and their display names
     const specsToDisplay = [
+        { label: "Product Highlight", key: "detail" }, // Full-width, high-impact feature
         { label: "Model Name", key: "modelName" },
         { label: "Dimension", key: "dimension" },
         { label: "Working Range", key: "workingRange" },
@@ -557,20 +580,19 @@ const ProductDetails = ({ product, onBackClick }) => {
     ];
     
     // Keys that should span the full width of the grid and receive special styling
-    const fullWidthKeys = ['application', 'feature']; 
-    // Keys that should use the new L-R aligned layout (Model Name, Dimension, Working Range)
-    const alignedSpecsKeys = ['modelName', 'dimension', 'workingRange'];
+    const fullWidthKeys = ['detail', 'application', 'feature']; 
 
     return (
-        <div style={{ padding: '4rem 0' }}> 
+        // Reduced top padding (from 4rem) to 1.5rem to pull content closer to header
+        <div style={{ padding: '1.5rem 0 4rem 0' }}> 
             
-            {/* Back Button Section */}
-            <div className="container" style={{paddingBottom: '1rem'}}>
+            {/* Back Button Section: Now with minimal padding, near the top of the page */}
+            <div className="container" style={{padding: '0.5rem 0 1rem 0'}}>
                 <button 
                     className="button" 
                     onClick={onBackClick} 
                     style={{ 
-                        backgroundColor: COLORS.primary, 
+                        backgroundColor: COLORS.primary, // Dark button for back action
                         boxShadow: '0 4px 10px rgba(29, 29, 31, 0.2)',
                         padding: '0.5rem 1rem' 
                     }}
@@ -579,17 +601,20 @@ const ProductDetails = ({ product, onBackClick }) => {
                 </button>
             </div>
 
-            {/* Main Product Header and Image Section */}
+            {/* Main Full-Width Content Section: Spans entire screen width */}
             <section style={{ 
-                backgroundColor: '#f7f7f7', 
+                backgroundColor: '#f7f7f7', // Light gray background band
                 padding: '0' 
             }}>
-                <div className="container product-detail-flex" style={{ 
+                {/* SECTION 1: Image and Product Header/CTA 
+                    Reduced top padding from 4rem to 2rem to shift content up.
+                */}
+                <div className="container" style={{ 
                     display: 'flex', 
                     gap: '4rem', 
                     alignItems: 'flex-start', 
                     flexWrap: 'wrap',
-                    padding: '4rem 1rem 2rem 1rem', 
+                    padding: '2rem 1rem 2rem 1rem', 
                 }}>
                     {/* Product Image Column */}
                     <div style={{ flex: '1 1 350px' }}>
@@ -600,39 +625,36 @@ const ProductDetails = ({ product, onBackClick }) => {
                                 width: '100%', 
                                 height: 'auto', 
                                 borderRadius: '12px', 
+                                // Keep shadow for image
                                 boxShadow: '0 5px 20px rgba(0, 0, 0, 0.1)' 
                             }}
                             onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/aaaaaa/333333?text=Product+Image'; }}
                         />
                     </div>
                     
-                    {/* Details/Text Column */}
+                    {/* Details/Text Column - Takes up remaining width */}
                     <div style={{ flex: '2 1 500px' }}>
-                        {/* Adjusted from 2.8rem to 2.2rem */}
-                        <h1 style={{ color: COLORS.primary, fontSize: '2.2rem', marginBottom: '0.5rem', fontWeight: '800' }}>{product.name}</h1>
-                        
-                        {/* PRODUCT HIGHLIGHT */}
-                        <p style={{ 
-                            fontSize: '1.2rem', 
-                            lineHeight: '1.5',
-                            color: COLORS.secondary, 
-                            fontWeight: '600',
-                            marginBottom: '1.5rem',
+                        <h1 style={{ 
+                            color: COLORS.primary, 
+                            fontSize: '2.2rem', 
+                            marginBottom: '1.5rem', 
+                            fontWeight: '800' 
                         }}>
-                            {product.detail}
-                        </p>
+                            {product.name}
+                        </h1>
                         
-                        {/* CTA Button */}
+                        {/* Moved CTA Button here for immediate visibility */}
                         <button className="button" style={{ fontSize: '1.2rem' }}>
                             Request a Quote &rarr;
                         </button>
                     </div>
                 </div>
                 
-                {/* Core Specifications Table Section */}
+                {/* SECTION 2: Core Specifications Table */}
                 <div className="container" style={{ 
-                    padding: '2rem 1rem 4rem 1rem', 
+                    padding: '2rem 1rem 4rem 1rem', // Padding top/bottom for separation
                 }}>
+                    {/* CORE SPECIFICATIONS - Full width and visually dominant */}
                     <h3 style={{ 
                         color: COLORS.primary, 
                         fontSize: '1.5rem',
@@ -648,87 +670,49 @@ const ProductDetails = ({ product, onBackClick }) => {
                         gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
                         gap: '1.5rem', 
                         padding: '1.5rem',
-                        backgroundColor: '#ffffff', 
+                        backgroundColor: '#ffffff', // White background for the spec box 
                         borderRadius: '10px',
                         border: '1px solid #EDEDED'
                     }}>
+                        {/* Iterate over the structured specs and pull values directly from product */}
                         {specsToDisplay.map((spec) => {
                             const isFullWidth = fullWidthKeys.includes(spec.key);
-                            const isAlignedSpec = alignedSpecsKeys.includes(spec.key);
 
+                            // Skip rendering if the key exists but the value is null/undefined/empty string
                             if (!product[spec.key]) return null;
 
-                            // 1. FULL-WIDTH, HIGH-DETAIL SPECS (Application, Key Features)
-                            if (isFullWidth) {
-                                return (
-                                    <div 
-                                        key={spec.key} 
-                                        className="feature-highlight" 
-                                        style={{ 
-                                            gridColumn: '1 / -1', 
-                                            padding: '1.5rem',
-                                        }}
-                                    >
-                                        <span style={{ 
-                                            fontSize: '0.8rem', 
-                                            color: COLORS.secondary, 
-                                            fontWeight: '700', 
-                                            textTransform: 'uppercase', 
-                                            letterSpacing: '0.5px',
-                                            display: 'block',
-                                            marginBottom: '0.5rem'
-                                        }}>
-                                            {spec.label}
-                                        </span>
-                                        <span className="feature-highlight-value" style={{ 
-                                            fontSize: '1.1rem', 
-                                            color: COLORS.primary, 
-                                            fontWeight: '500', 
-                                            lineHeight: '1.5'
-                                        }}>
-                                            {product[spec.key]}
-                                        </span>
-                                    </div>
-                                );
-                            }
-
-                            // 2. ALIGNED/STANDARD SPECS (Model Name, Dimension, Working Range)
-                            if (isAlignedSpec) {
-                                return (
-                                    <div 
-                                        key={spec.key}
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'space-between', 
-                                            alignItems: 'center',
-                                            padding: '1rem 0',
-                                            borderBottom: '1px solid #eee' 
-                                        }}
-                                    >
-                                        {/* Label (Left side) */}
-                                        <span style={{
-                                            color: COLORS.textDark,
-                                            fontWeight: '600',
-                                            fontSize: '1rem',
-                                            flexShrink: 0, 
-                                            paddingRight: '1rem'
-                                        }}>
-                                            {spec.label}
-                                        </span>
-                                        {/* Value (Right side, highlighted) */}
-                                        <span style={{
-                                            color: COLORS.secondary, 
-                                            fontWeight: '700',
-                                            fontSize: '1rem',
-                                            textAlign: 'right'
-                                        }}>
-                                            {product[spec.key]}
-                                        </span>
-                                    </div>
-                                );
-                            }
-
-                            return null;
+                            return (
+                                <div 
+                                    key={spec.key} 
+                                    className={isFullWidth ? 'feature-highlight' : ''}
+                                    style={{ 
+                                        display: 'flex', 
+                                        flexDirection: 'column',
+                                        // CRITICAL: Make full-width items span both columns
+                                        gridColumn: isFullWidth ? '1 / -1' : 'auto', 
+                                    }}
+                                >
+                                    {/* Label in Red/Secondary color, bold, uppercase */}
+                                    <span style={{ 
+                                        fontSize: '0.8rem', 
+                                        color: COLORS.secondary, 
+                                        fontWeight: '700', 
+                                        textTransform: 'uppercase', 
+                                        letterSpacing: '0.5px' 
+                                    }}>
+                                        {spec.label}
+                                    </span>
+                                    {/* Value in Primary color, larger font, bold */}
+                                    <span className={isFullWidth ? 'feature-highlight-value' : ''} style={{ 
+                                        fontSize: '1.1rem', 
+                                        color: COLORS.primary, 
+                                        fontWeight: isFullWidth ? '700' : '600', 
+                                        marginTop: '0.2rem' 
+                                    }}>
+                                        {product[spec.key]}
+                                    </span>
+                                </div>
+                            );
                         })}
                     </div>
                 </div>
@@ -737,68 +721,131 @@ const ProductDetails = ({ product, onBackClick }) => {
     );
 };
 
-// --- 6. MAIN APP COMPONENT (Router Logic) ---
+
+const ProductsPage = ({ setCurrentPage }) => {
+    // State to hold the currently selected product for the detail view
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+    const handleExploreClick = (product) => {
+        setSelectedProduct(product);
+        // Optionally scroll to top
+        window.scrollTo(0, 0); 
+    };
+
+    const handleBackClick = () => {
+        setSelectedProduct(null);
+    };
+
+    // Conditional Rendering: Show details or show grid
+    if (selectedProduct) {
+        return <ProductDetails product={selectedProduct} onBackClick={handleBackClick} />;
+    }
+    
+    return (
+        <div className="container" style={{ padding: '4rem 0' }}>
+            <h2 style={{ color: COLORS.primary, fontSize: '2.4rem', marginBottom: '2.5rem', textAlign: 'center', fontWeight: '800' }}>
+                All Almods Precision Stabilizers
+            </h2>
+            
+            {/* Displaying the 8 specific product cards */}
+            <div className="card-grid">
+                {productsData.map((product) => (
+                    <ProductGridCard
+                        key={product.id}
+                        product={product}
+                        onExploreClick={handleExploreClick}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
+const ContactPage = () => (
+    <div style={{ padding: '4rem 0' }}>
+        <div className="card" style={{ maxWidth: '500px', margin: '0 auto', textAlign: 'center', padding: '3rem' }}>
+            <h2 style={{ color: COLORS.primary, fontSize: '2rem', marginBottom: '1.5rem', fontWeight: '700' }}>Get in Touch with Almods</h2>
+            <p style={{ marginBottom: '2rem', color: '#555' }}>
+                Fill out the form below or email us directly at <strong style={{color: COLORS.secondary}}>support@myapp.com</strong>.
+            </p>
+            <form style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+                <input type="text" placeholder="Your Name" style={inputStyle} />
+                <input type="email" placeholder="Your Email" style={inputStyle} />
+                <textarea placeholder="Your Message" rows="5" style={inputStyle}></textarea>
+                <button type="submit" className="button" style={{ fontSize: '1.1rem', marginTop: '1rem' }}>Send Message</button>
+            </form>
+        </div>
+    </div>
+);
+
+const inputStyle = {
+    padding: '0.9rem',
+    border: `1px solid #ddd`,
+    borderRadius: '8px',
+    fontSize: '1rem',
+    width: '100%',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s',
+};
+
+// --- 6. PAGE ROUTER ---
+const PageRouter = ({ currentPage, setCurrentPage }) => {
+    switch (currentPage) {
+        case 'home':
+        case 'stability':
+            return <HomePage />;
+        case 'products':
+            return <ProductsPage setCurrentPage={setCurrentPage} />;
+        case 'contact':
+            return <ContactPage />;
+        default:
+            return <HomePage />;
+    }
+};
+
+
+// --- 7. MAIN APP COMPONENT ---
+
 const App = () => {
-    // currentPage state is an object: { page: 'home' | 'products' | 'contact', product?: ProductType }
-    const [currentPage, setCurrentPage] = useState({ page: 'home', product: null });
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState('home');
 
     const navItems = [
         { name: 'Home', page: 'home' },
         { name: 'Products', page: 'products' },
-        { name: 'Contact Us', page: 'contact' },
+        { name: 'Stability', page: 'home' },
+        { name: 'Contact', page: 'contact' },
     ];
-    
-    // Function to render the correct page component
-    const PageRouter = () => {
-        switch (currentPage.page) {
-            case 'home':
-                return <HomePage setCurrentPage={setCurrentPage} />;
-            case 'products':
-                // Check if a specific product is selected for the detail view
-                if (currentPage.product) {
-                    return (
-                        <ProductDetails 
-                            product={currentPage.product} 
-                            // Navigate back to the product list view
-                            onBackClick={() => setCurrentPage({ page: 'products', product: null })} 
-                        />
-                    );
-                }
-                return <ProductsPage setCurrentPage={setCurrentPage} />;
-            case 'contact':
-                return (
-                    <div className="container" style={{ padding: '6rem 0', textAlign: 'center' }}>
-                        <h2 style={{ fontSize: '2.5rem', color: COLORS.primary }}>Contact Us</h2>
-                        <p style={{ fontSize: '1.1rem', color: '#555' }}>
-                            Reach out to our sales team for quotes and support.
-                        </p>
-                        <p style={{ fontWeight: '700', marginTop: '2rem' }}>Email: <a href="mailto:sales@almods.com" style={{ color: COLORS.secondary, textDecoration: 'none' }}>sales@almods.com</a></p>
-                    </div>
-                );
-            default:
-                return <HomePage setCurrentPage={setCurrentPage} />;
-        }
-    };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <div style={{ 
+            fontFamily: 'Inter, sans-serif', 
+            minHeight: '100vh', 
+            backgroundColor: COLORS.background, 
+            color: COLORS.textDark, 
+            display: 'flex',
+            flexDirection: 'column'
+        }}>
+            {/* Inject Custom Styles to replace the global Tailwind stylesheet */}
             <CustomStyles />
+            
+            {/* Navigation */}
             <Header 
-                isMenuOpen={isMenuOpen}
-                setIsMenuOpen={setIsMenuOpen}
-                navItems={navItems}
+                isMenuOpen={isMenuOpen} 
+                setIsMenuOpen={setIsMenuOpen} 
+                navItems={navItems} 
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
             />
-            
+
             <main style={{ flexGrow: 1 }}>
-                <PageRouter />
+                {/* Dynamically render the current page using the router */}
+                <PageRouter currentPage={currentPage} setCurrentPage={setCurrentPage} />
             </main>
-            
+
             <Footer />
         </div>
     );
-};
+}
 
 export default App;
