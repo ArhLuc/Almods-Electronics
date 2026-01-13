@@ -761,32 +761,219 @@ const ProductsPage = ({ setCurrentPage }) => {
     );
 };
 
-const ContactPage = () => (
-    <div style={{ padding: '4rem 0' }}>
-        <div className="card" style={{ maxWidth: '500px', margin: '0 auto', textAlign: 'center', padding: '3rem' }}>
-            <h2 style={{ color: COLORS.primary, fontSize: '2rem', marginBottom: '1.5rem', fontWeight: '700' }}>Get in Touch with Almods</h2>
-            <p style={{ marginBottom: '2rem', color: '#555' }}>
-                Fill out the form below or email us directly at <strong style={{color: COLORS.secondary}}>support@myapp.com</strong>.
+
+
+const inputStyle = {
+padding: "0.9rem",
+border: `1px solid #ddd`,
+borderRadius: "8px",
+fontSize: "1rem",
+width: "100%",
+boxSizing: "border-box",
+transition: "border-color 0.2s",
+};
+
+const errorStyle = {
+color: "red",
+fontSize: "0.9rem",
+marginTop: "-0.5rem"
+};
+
+const ContactPage = () => {
+const [name, setName] = useState("");
+const [location, setLocation] = useState("");
+const [customLocation, setCustomLocation] = useState("");
+const [selectedProducts, setSelectedProducts] = useState([]);
+
+
+const [errors, setErrors] = useState({});
+
+const products = ["SOLAR", "SERVO", "STABILIZER", "INVERTER", "BATTERY"];
+const locations = [
+    "Lucknow",
+    "Ayodhya / Faizabad",
+    "Basti",
+    "Barabanki",
+    "Balrampur",
+    "Gonda",
+    "Bahraich",
+    "Pratapgarh",
+    "Gorakhpur",
+    "Other",
+];
+
+const toggleProduct = (option) => {
+    setSelectedProducts((prev) =>
+        prev.includes(option)
+            ? prev.filter((item) => item !== option)
+            : [...prev, option]
+    );
+};
+
+const validateForm = () => {
+    let newErrors = {};
+
+    if (!name.trim()) newErrors.name = "Name is required.";
+
+    if (!location) newErrors.location = "Location is required.";
+
+    if (location === "Other" && !customLocation.trim()) {
+        newErrors.customLocation = "Please enter your location.";
+    }
+
+    if (selectedProducts.length === 0) {
+        newErrors.products = "Select at least one product.";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+};
+
+const sendToWhatsApp = (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    const whatsappNumber = "919876543210";
+
+    const finalLocation = location === "Other" ? customLocation : location;
+
+    const text = `New Enquiry from Almods Website:
+
+
+Name: ${name}
+Location: ${finalLocation}
+Interested In: ${selectedProducts.join(", ")}`;
+
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        text
+    )}`;
+
+    window.open(url, "_blank");
+};
+
+return (
+    <div style={{ padding: "4rem 0" }}>
+        <div
+            className="card"
+            style={{
+                maxWidth: "500px",
+                margin: "0 auto",
+                textAlign: "center",
+                padding: "3rem",
+            }}
+        >
+            <h2
+                style={{
+                    color: COLORS.primary,
+                    fontSize: "2rem",
+                    marginBottom: "1.5rem",
+                    fontWeight: "700",
+                }}
+            >
+                Get in Touch with Almods
+            </h2>
+
+            <p style={{ marginBottom: "2rem", color: "#555" }}>
+                
+                <strong style={{ color: COLORS.secondary }}>
+                    We usually respond to all support messages within 24 to 48 hours.
+                </strong>
+                .
             </p>
-            <form style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-                <input type="text" placeholder="Your Name" style={inputStyle} />
-                <input type="email" placeholder="Your Email" style={inputStyle} />
-                <textarea placeholder="Your Message" rows="5" style={inputStyle}></textarea>
-                <button type="submit" className="button" style={{ fontSize: '1.1rem', marginTop: '1rem' }}>Send Message</button>
+
+            <form style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+                
+                {/* NAME */}
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    style={inputStyle}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                {errors.name && <div style={errorStyle}>{errors.name}</div>}
+
+                {/* LOCATION DROPDOWN */}
+                <select
+                    style={inputStyle}
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                >
+                    <option value="">Select Location</option>
+                    {locations.map((loc) => (
+                        <option key={loc} value={loc}>
+                            {loc}
+                        </option>
+                    ))}
+                </select>
+                {errors.location && <div style={errorStyle}>{errors.location}</div>}
+
+                {/* CUSTOM LOCATION INPUT */}
+                {location === "Other" && (
+                    <>
+                        <input
+                            type="text"
+                            placeholder="Enter your location"
+                            style={inputStyle}
+                            value={customLocation}
+                            onChange={(e) => setCustomLocation(e.target.value)}
+                        />
+                        {errors.customLocation && (
+                            <div style={errorStyle}>{errors.customLocation}</div>
+                        )}
+                    </>
+                )}
+
+                {/* PRODUCTS */}
+                <div style={{ textAlign: "left" }}>
+                    <label style={{ fontWeight: "600" }}>Select Products:</label>
+                    <div style={{ marginTop: "0.8rem" }}>
+                        {products.map((item) => (
+                            <div key={item} style={{ marginBottom: "0.5rem" }}>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedProducts.includes(item)}
+                                    onChange={() => toggleProduct(item)}
+                                    id={item}
+                                />
+                                <label htmlFor={item} style={{ marginLeft: "0.5rem" }}>
+                                    {item}
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                    {errors.products && (
+                        <div style={errorStyle}>{errors.products}</div>
+                    )}
+                </div>
+
+                <button
+                    onClick={sendToWhatsApp}
+                    type="button"
+                    className="button"
+                    style={{
+                        fontSize: "1.1rem",
+                        marginTop: "1rem",
+                        backgroundColor: "#25D366",
+                    }}
+                >
+                    Send via WhatsApp
+                </button>
+
+           
             </form>
         </div>
     </div>
 );
 
-const inputStyle = {
-    padding: '0.9rem',
-    border: `1px solid #ddd`,
-    borderRadius: '8px',
-    fontSize: '1rem',
-    width: '100%',
-    boxSizing: 'border-box',
-    transition: 'border-color 0.2s',
+
 };
+
+
+
 
 // --- 6. PAGE ROUTER ---
 const PageRouter = ({ currentPage, setCurrentPage }) => {
