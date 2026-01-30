@@ -20,7 +20,7 @@ const productsData = [
         dimension: "500 x 350 x 200 mm",
         application: "Main Line/Full House (Double Phase) - Designed for high-demand residential and light industrial applications requiring robust two-phase voltage correction across an extreme range.",
         workingRange: "100V - 500V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Guardian+5000VA',
+        image: '/images/mainline100-500.png',
         feature: 'LOW AND HIGH VOLTAGE CUT-OFF PROTECTION - PROTECTS CONNECTED EQUIPMENT FROM POTENTIALLY DANGEROUS VOLTAGES. AS9DP500 ALLOWS FUNCTIONING WITH BY-PASS CHANGE OVER MCB. PERFORMS IN WIDE INPUT RANGE. INITIAL TIME DELAY: THE AMAZING INITIAL TIME DELAY SYSTEM PROTECTS THE COMPRESSOR FROM FREQUENT RE-STARTING AND ENSURES THE SAFETY OF THE CONNECTED EQUIPMENT, IN CASE OF VOLTAGE FLUCTUATION BY PROVIDING A DELAY.' 
     },
     { 
@@ -31,7 +31,7 @@ const productsData = [
         dimension: "450 x 300 x 180 mm",
         application: "Main Line/Full House (Single Phase) - Provides comprehensive, single-phase voltage stabilization for the entire residential property, protecting all appliances from extreme low voltage conditions.",
         workingRange: "80V - 300V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Sentinel+10kVA',
+        image: '/images/mainline80-300.png',
         feature: 'MICROPROCESSOR BASED DESIGN: Advanced digital circuitry for rapid and precise voltage correction. Built-in **Thermal Overload Protection** and **Intelligent Time Delay** (ITD) for compressor-based appliances. Designed with an attractive digital display showing input and output voltage levels.'
     },
     { 
@@ -42,7 +42,7 @@ const productsData = [
         dimension: "300 x 200 x 150 mm",
         application: "1.5 & 2.0 Ton AC Unit (Extreme Low Voltage) - Specifically engineered for high-tonnage air conditioning units operating in areas with severe voltage drops, ensuring compressor safety.",
         workingRange: "80V - 300V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Shield+2000',
+        image: '/images/AC 150-280.png',
         feature: 'EXTREME LOW VOLTAGE PERFORMANCE: Guarantees air conditioner operation even at 80V, preventing costly compressor failure. **Wall-Mountable Sleek Design** with high-efficiency transformer windings for minimal power loss. Features high-speed voltage cutoff for surge protection.'
     },
     { 
@@ -53,7 +53,7 @@ const productsData = [
         dimension: "300 x 200 x 150 mm",
         application: "1.5 & 2.0 Ton AC Unit (Standard Voltage) - Ideal for stabilizing AC units where voltage fluctuations are moderate, maintaining optimal cooling performance and efficiency.",
         workingRange: "150V - 280V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=AC+Master',
+        image: '/images/_1.5 & 2.0 TON AC 80V-300V.png',
         feature: 'STANDARD APPLICATION RELIABILITY: Designed for consistent performance in areas with moderate voltage fluctuations. Includes **Initial Time Delay** (ITD) to protect the AC compressor from frequent power cycles. Compact housing for easy installation near the appliance.'
     },
     { 
@@ -64,7 +64,7 @@ const productsData = [
         dimension: "280 x 180 x 120 mm",
         application: "1.5 Ton AC Unit (Mid Voltage Fluctuation) - A focused solution for 1.5-ton units, providing protection in environments with predictable but persistent voltage swings.",
         workingRange: "120V - 290V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Freeze+Guard',
+        image: '/images/AC 120V-290V copy.png',
         feature: 'MID-RANGE STABILITY: Provides reliable voltage correction from 120V up. **Sleek LED Status Indicators** for monitoring power status. Engineered with robust internal components for extended operational lifespan and low-noise performance.'
     },
     { 
@@ -75,7 +75,7 @@ const productsData = [
         dimension: "350 x 220 x 160 mm",
         application: "1.5 & 2.0 Ton AC Unit (Narrow Range) - Designed for locations with generally stable grid power but requiring precise regulation within a tighter voltage band.",
         workingRange: "160V - 280V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=MainLine+10kW',
+        image: '/images/AC 160V-280V copy.png',
         feature: 'PRECISE REGULATION: Focuses on tight voltage control within a narrower input range for highly sensitive electronics. Features **Auto-Reset Functionality** after power cuts, restoring operation safely. High-grade metal casing for superior durability and heat dissipation.'
     },
     { 
@@ -86,7 +86,7 @@ const productsData = [
         dimension: "550 x 400 x 250 mm",
         application: "1.5 & 2.0 Ton AC Unit (Servo Grade Protection) - Utilizing advanced servo motor technology for near-instantaneous voltage correction, offering the highest level of stability for critical cooling systems.",
         workingRange: "80V - 300V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Servo+30A',
+        image: '/images/AC 80V-300V copy.png',
         feature: 'SERVO-ASSISTED CORRECTION: Uses a powerful servo motor for **near-zero-delay voltage regulation**. Ideal for industrial or laboratory-grade applications demanding continuous, perfect voltage supply. Includes an analog meter for real-time voltage monitoring.'
     },
     { 
@@ -97,7 +97,7 @@ const productsData = [
         dimension: "250 x 150 x 100 mm",
         application: "Refrigerator and Deep Freezer - Essential protection for sensitive cooling appliances, preventing damage from power dips and surges which can affect compressor lifespan.",
         workingRange: "130V - 290V",
-        image: 'https://placehold.co/400x300/FF3B30/FFFFFF?text=Visual+1000',
+        image: '/images/REFRIGERATOR AND DEEP FREEZE copy.png',
         feature: 'DEDICATED COOLING APPLIANCE PROTECTION: Optimized ITD specifically for refrigeration compressors. **Compact, under-counter design** with simple plug-and-play setup. High-cut protection ensures the appliance is instantly disconnected during severe high voltage spikes.'
     },
 ];
@@ -644,8 +644,10 @@ const ProductDetails = ({ product, onBackClick }) => {
                         </h1>
                         
                         {/* Moved CTA Button here for immediate visibility */}
-                        <button className="button" style={{ fontSize: '1.2rem' }}>
-                            Request a Quote &rarr;
+                        <button className="button"
+                         onClick={onBackClick}
+                          style={{ fontSize: '1.2rem' }}>
+                            Contact Us &rarr;
                         </button>
                     </div>
                 </div>
@@ -1000,7 +1002,6 @@ const App = () => {
     const navItems = [
         { name: 'Home', page: 'home' },
         { name: 'Products', page: 'products' },
-        { name: 'Stability', page: 'home' },
         { name: 'Contact', page: 'contact' },
     ];
 
