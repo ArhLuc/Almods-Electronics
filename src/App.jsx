@@ -339,6 +339,7 @@ const CustomStyles = () => (
             .advantage-icon svg { animation: floatIcon 4.5s ease-in-out infinite alternate; }
 
             @media (max-width: 768px) {
+                /* Compact feature card visuals */
                 .feature-card-image {
                     height: 10rem; /* 160px on small screens */
                 }
@@ -347,6 +348,39 @@ const CustomStyles = () => (
                 .advantage-grid { gap: 1rem; grid-template-columns: 1fr; }
                 .advantage-card { padding: 1rem; border-radius: 12px; }
                 .advantage-icon { width: 48px; height: 48px; }
+
+                /* Make buttons stretch for easier tapping */
+                .button, .button-outline {
+                    width: 100%;
+                    display: block;
+                    box-sizing: border-box;
+                    padding-left: 1rem;
+                    padding-right: 1rem;
+                    text-align: center;
+                }
+
+                /* Reduce horizontal padding for small containers */
+                .container { padding: 0 1rem; }
+
+                /* Make product card grid single-column and reduce spacing */
+                .card-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 2rem !important;
+                    padding: 2rem 0 !important;
+                }
+
+                /* Ensure product images scale naturally on mobile */
+                .card img, .feature-card-image img, .hero-image { height: auto !important; max-width: 100%; }
+
+                /* Tighten hero sizing for small viewports */
+                .hero-image-container { height: 38vh; }
+                .hero-title { font-size: 2rem; }
+
+                /* Specs grid becomes single column */
+                .specs-grid-desktop { grid-template-columns: 1fr !important; }
+
+                /* Make feature cards less tall on mobile */
+                .feature-card { padding: 2.5rem 1.25rem; min-height: auto; }
             }
 
             /* Responsive Logo Size */
