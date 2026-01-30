@@ -126,6 +126,18 @@ const CustomStyles = () => (
                 justify-content: center;
                 align-items: center;
             }
+            /* Screen-reader only text for accessibility (visually hidden) */
+            .sr-only {
+                position: absolute !important;
+                width: 1px !important;
+                height: 1px !important;
+                padding: 0 !important;
+                margin: -1px !important;
+                overflow: hidden !important;
+                clip: rect(0, 0, 0, 0) !important;
+                white-space: nowrap !important;
+                border: 0 !important;
+            }
             .container {
                 max-width: 1200px;
                 margin: 0 auto;
@@ -374,8 +386,24 @@ const CustomStyles = () => (
 
                 /* Tighten hero sizing for small viewports */
                 .hero-image-container { height: 38vh; }
-                .hero-title { font-size: 2rem; }
+                .hero-title { font-size: 2rem !important; }
 
+                /* Hero overlay text scaling */
+                .hero-overlay p { font-size: 1rem !important; line-height: 1.5 !important; max-width: 92% !important; }
+                .hero-overlay .container { padding-left: 0.5rem; padding-right: 0.5rem; }
+                .hero-overlay .button, .hero-overlay .button-outline { width: 100% !important; padding: 0.85rem 1rem !important; font-size: 1rem !important; }
+
+
+            /* Extra-small screens (phones) */
+            @media (max-width: 480px) {
+                .hero-image-container { height: 34vh !important; }
+                .hero-title { font-size: 1.6rem !important; line-height: 1.1 !important; }
+                .hero-overlay p { font-size: 0.98rem !important; margin-bottom: 1rem !important; }
+                .hero-overlay .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+                .hero-overlay .button, .hero-overlay .button-outline { width: 100% !important; display: block !important; }
+                .hero-overlay .button { margin-bottom: 0.6rem !important; }
+                .hero-overlay .button-outline { margin-bottom: 0.25rem !important; }
+            }
                 /* Specs grid becomes single column */
                 .specs-grid-desktop { grid-template-columns: 1fr !important; }
 
@@ -454,12 +482,19 @@ const CustomStyles = () => (
             }
             .hero-title {
                 color: ${COLORS.textLight}; /* White text */
-                font-size: 3.5rem;
+                /* Use a fluid/clamped size so the headline fits all mobile widths */
+                font-size: clamp(1.4rem, 7.2vw, 3.5rem) !important;
                 font-weight: 800;
                 margin-bottom: 1rem;
-                line-height: 1.2;
+                line-height: 1.05 !important;
                 text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+                white-space: normal !important;
+                word-break: break-word !important;
             }
+
+            /* Ensure hero overlay container and paragraph are fluid on small screens */
+            .hero-overlay .container { max-width: 100% !important; padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+            .hero-overlay p { font-size: clamp(0.95rem, 3.8vw, 1.3rem) !important; line-height: 1.45 !important; max-width: 100% !important; }
             /* --- END Hero Styles --- */
 
 
@@ -493,45 +528,192 @@ const CustomStyles = () => (
                 font-size: 1.1rem !important; 
                 line-height: 1.5;
             }
+                .cta-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+
+  padding: 1rem 2.4rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+
+  background: linear-gradient(
+    135deg,
+    #ff3b30,
+    #ff6a5b,
+    #ff3b30
+  );
+  background-size: 200% 200%;
+
+  box-shadow:
+    0 8px 24px rgba(255, 59, 48, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+  transition:
+    transform 0.35s cubic-bezier(.2,.9,.2,1),
+    box-shadow 0.35s ease,
+    background-position 0.6s ease;
+}
+
+/* 🔥 Hover */
+.cta-button:hover {
+  transform: translateY(-5px) scale(1.02);
+  background-position: 100% 0;
+
+  box-shadow:
+    0 18px 45px rgba(255, 59, 48, 0.45),
+    0 0 0 6px rgba(255, 59, 48, 0.08);
+}
+
+/* ⚡ Active / Click */
+.cta-button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow:
+    0 10px 25px rgba(255, 59, 48, 0.35);
+}
+
+/* 🎯 Keyboard focus */
+.cta-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 4px rgba(255, 59, 48, 0.5),
+    0 10px 25px rgba(255, 59, 48, 0.4);
+}
+
+/* ✨ Subtle glow animation */
+.cta-button::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 255, 255, 0.35),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cta-button:hover::after {
+  opacity: 1;
+}
+
+/* 📱 Mobile tweak */
+@media (max-width: 600px) {
+  .cta-button {
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+  }
+}
+
 
             /* Mobile Viewpoint Adjustments */
             @media (max-width: 768px) {
                 .menu-icon {
                     display: flex;
                 }
+                /* Make the mobile menu a full-screen (under header) overlay for easy navigation */
                 .nav-links {
                     display: none;
                     flex-direction: column;
-                    position: absolute;
-                    top: 100%;
+                    position: fixed;
+                    top: 0;
                     left: 0;
                     width: 100%;
-                    background: linear-gradient(180deg, #1D1D1F, #252830);
-                    padding: 0.5rem 0;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                    z-index: 50;
-                    backdrop-filter: blur(10px);
+                    height: 100vh;
+                    padding-top: 72px; /* leave room for header */
+                    background: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+                    box-shadow: 0 20px 60px rgba(10,18,30,0.12);
+                    z-index: 90;
+                    overflow-y: auto;
                 }
                 .nav-links.open {
                     display: flex;
-                    animation: slideDown 250ms ease;
+                    animation: slideDown 220ms ease;
                 }
+                /* Mobile 'All Pages' card becomes prominent and expands by default */
+                .nav-mobile-card {
+                    display: block; /* visible in overlay */
+                    width: calc(100% - 2rem);
+                    margin: 0.6rem auto;
+                    background: linear-gradient(180deg, #ffffff, #f7f9ff);
+                    border-radius: 14px;
+                    padding: 0.6rem;
+                    box-shadow: 0 18px 40px rgba(10,18,30,0.08);
+                    border: 1px solid rgba(13,13,13,0.04);
+                }
+                .nav-mobile-toggle {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 0.6rem;
+                    padding: 0.6rem 0.6rem;
+                    cursor: pointer;
+                }
+
+                .nav-mobile-title { font-weight: 800; color: ${COLORS.primary}; font-size: 1.05rem; }
+                .nav-mobile-sub { color: #666; font-size: 0.9rem; }
+                .nav-mobile-grid {
+                    display: grid;
+                    gap: 0.6rem;
+                    margin-top: 0.6rem;
+                    grid-template-columns: repeat(1, 1fr);
+                }
+                    .hero-overlay {
+  background: transparent !important;
+}
+
+                /* slightly larger grid on wider phones */
+                @media (min-width:420px) {
+                    .nav-mobile-grid { grid-template-columns: repeat(2, 1fr); }
+                }
+                .nav-mobile-grid.open { display: grid; }
+                .nav-mobile-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.9rem;
+                    padding: 1rem;
+                    background: #ffffff;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    box-shadow: 0 10px 28px rgba(10,18,30,0.06);
+                    transition: transform 160ms ease, box-shadow 160ms ease;
+                    border: 1px solid rgba(10,10,12,0.03);
+                    font-size: 1.05rem;
+                }
+                .nav-mobile-item:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(10,18,30,0.08); }
+                .nav-mobile-icon {
+                    width: 44px; height: 44px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; color: ${COLORS.textLight}; background: ${COLORS.secondary};
+                }
+                /* Primary tap targets as big buttons below the card as fallback */
                 .nav-links a {
-                    padding: 0.8rem 2rem;
+                    padding: 0.9rem 1rem;
                     text-align: left;
-                    color: #ffffff;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-                    font-weight: 500;
-                    transition: all 200ms ease;
+                    color: ${COLORS.primary};
+                    font-weight: 700;
+                    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+                    display: block;
+                    width: calc(100% - 2rem);
+                    margin: 0.5rem auto;
+                    box-sizing: border-box;
+                    font-size: 1rem;
+                    background: transparent;
+                    border-radius: 10px;
                 }
-                .nav-links a:hover {
-                    background: rgba(255, 59, 48, 0.1);
-                    color: #FF3B30;
-                    padding-left: 2.5rem;
+                .nav-links a:focus, .nav-links a:active, .nav-links a:hover {
+                    background: rgba(255, 59, 48, 0.06);
+                    color: ${COLORS.secondary};
+                    transform: translateY(-2px);
                 }
-                .nav-links a:last-child {
-                    border-bottom: none;
-                }
+                .nav-links a:last-child { margin-bottom: 1.5rem; }
                 
                 @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -547,6 +729,21 @@ const CustomStyles = () => (
                 .hero-title {
                     font-size: 2rem;
                 }
+                /* On mobile show only the headline and primary CTA */
+                .hero-overlay .container > div:nth-child(2) { display: none !important; } /* decorative line */
+                .hero-overlay p { display: none !important; } /* hide paragraph on mobile */
+                /* Show both CTAs on mobile; stack them and make them touch-friendly */
+                .hero-overlay .button-outline { display: block !important; width: 100% !important; margin: 0.4rem 0 !important; }
+                .hero-overlay .button { display: block !important; width: 100% !important; margin: 0.6rem 0 0.4rem 0 !important; }
+                /* Give the secondary CTA a dark/black background on mobile for prominence */
+                .hero-overlay .button-outline {
+                    background: rgba(10,10,12,0.96) !important;
+                    color: ${COLORS.textLight} !important;
+                    border-color: rgba(255,255,255,0.08) !important;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.45) !important;
+                    padding: 0.9rem 1rem !important;
+                }
+                .hero-overlay .button-outline:hover { background: rgba(20,20,20,1) !important; }
                     .feature-card-image {
   width: 100%;
   height: 10rem; /* 160px on small screens */
@@ -561,6 +758,7 @@ const CustomStyles = () => (
   max-height: 100%;
   object-fit: contain;
 }
+  
 
                 /* Mobile product card grid - 1 column */
                 .card-grid {
@@ -598,6 +796,19 @@ const CustomStyles = () => (
                 }
 
             }
+                /* Default (Desktop) — unchanged */
+.top-selling-section {
+  margin-top: 0;
+}
+
+/* 📱 Mobile only */
+@media (max-width: 768px) {
+  .top-selling-section {
+    padding-top: 2.5rem !important;  /* reduce space */
+    margin-top: -2.5rem;             /* pull section upward */
+  }
+}
+
             /* Desktop Viewpoint Adjustments (min-width: 769px) */
             @media (min-width: 769px) {
                 /* Increase Logo Size for desktop */
@@ -712,7 +923,16 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
                 />
                 
                 {/* Mobile Menu Icon */}
-                <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ cursor: 'pointer' }}>
+                <div
+                    className="menu-icon"
+                    role="button"
+                    aria-label="Toggle navigation"
+                    aria-expanded={isMenuOpen}
+                    tabIndex={0}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsMenuOpen(!isMenuOpen); } }}
+                    style={{ cursor: 'pointer' }}
+                >
                     <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(-45deg) translate(-5px, 6px)' : 'none', transition: 'all 300ms ease' }}></div>
                     <div style={{ background: COLORS.textDark, opacity: isMenuOpen ? 0 : 1, transition: 'opacity 300ms ease' }}></div>
                     <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(45deg) translate(-5px, -6px)' : 'none', transition: 'all 300ms ease' }}></div>
@@ -721,10 +941,26 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
                 {/* Navigation Links */}
                 <nav className={`nav-links ${isMenuOpen ? 'open' : ''}`}
                     style={{
-                        display: 'flex',
                         gap: '0.5rem',
                     }}
                 >
+                    {/* Mobile tiles integrated into the same nav overlay for quick navigation */}
+                    <div className={`nav-mobile-grid ${isMenuOpen ? 'open' : ''}`} aria-hidden={!isMenuOpen} style={{ width: '100%', padding: '0 1rem' }}>
+                        {navItems.map((item) => (
+                            <div
+                                key={`mobile-${item.page}`}
+                                className="nav-mobile-item"
+                                onClick={() => handleNavClick(item.page)}
+                                role="button"
+                                aria-label={item.name}
+                                tabIndex={0}
+                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNavClick(item.page); } }}
+                            >
+                                <span className="sr-only">{item.name}</span>
+                            </div>
+                        ))}
+                    </div>
+
                     {navItems.map((item) => (
                         <a
                             key={item.name}
@@ -849,7 +1085,6 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
                         animation: 'fadeInDown 0.8s ease-out'
                     }}>
                         <h2 className="hero-title" style={{
-                            fontSize: '4rem',
                             fontWeight: '900',
                             letterSpacing: '-2px',
                             marginBottom: '1.5rem',
@@ -902,73 +1137,27 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
                         flexWrap: 'wrap',
                         animation: 'fadeInUp 0.8s ease-out 0.5s both'
                     }}>
-                        <button onClick={() => setCurrentPage('products')} className="button" style={{ 
-                            fontSize: '1.1rem',
-                            fontWeight: '700',
-                            padding: '1rem 2.2rem',
-                            borderRadius: '12px',
-                            boxShadow: '0 8px 24px rgba(255, 59, 48, 0.3)',
-                            transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
-                            letterSpacing: '0.5px',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.target.style.transform = 'translateY(-4px)';
-                            e.target.style.boxShadow = '0 16px 40px rgba(255, 59, 48, 0.4)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.transform = 'translateY(0)';
-                            e.target.style.boxShadow = '0 8px 24px rgba(255, 59, 48, 0.3)';
-                        }}>
-                            ⚡ Discover Our Stabilizers
-                        </button>
-                        <button onClick={() => setCurrentPage('contact')} className="button-outline" style={{ 
-                            fontSize: '1.1rem',
-                            fontWeight: '700',
-                            padding: '1rem 2.2rem',
-                            borderRadius: '12px',
-                            color: '#ffffff',
-                            border: '2px solid rgba(255, 255, 255, 0.6)',
-                            background: 'rgba(255, 255, 255, 0.08)',
-                            backdropFilter: 'blur(10px)',
-                            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-                            transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
-                            letterSpacing: '0.5px',
-                            cursor: 'pointer'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.target.style.transform = 'translateY(-4px)';
-                            e.target.style.background = 'rgba(255, 255, 255, 0.15)';
-                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-                            e.target.style.boxShadow = '0 16px 40px rgba(255, 255, 255, 0.15)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.target.style.transform = 'translateY(0)';
-                            e.target.style.background = 'rgba(255, 255, 255, 0.08)';
-                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.6)';
-                            e.target.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.2)';
-                        }}>
-                            📞 Request Consultation
-                        </button>
+                     <button
+  onClick={() => setCurrentPage('products')}
+  className="cta-button"
+>
+  ⚡ Discover Our Stabilizers
+</button>
+
+                        
                     </div>
                 </div>
             </div>
         </div>
 
-        {/* Decorative SVG wave between hero and content */}
-        <svg className="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <defs>
-                <linearGradient id="waveGrad" x1="0" x2="1">
-                    <stop offset="0%" stopColor="#fafbff" />
-                    <stop offset="100%" stopColor="#ffffff" />
-                </linearGradient>
-            </defs>
-            <path fill="url(#waveGrad)" d="M0,32 C180,120 360,8 720,48 C1080,88 1260,24 1440,80 L1440 120 L0 120 Z"></path>
-        </svg>
+      
         {/* --- End Hero Section --- */}
         
         {/* Top Selling Products Section */}
-       <div className="container" style={{ padding: '6rem 0.5rem 4rem' }}>
+<div
+  className="container top-selling-section"
+  style={{ padding: '6rem 0.5rem 4rem' }}
+>
   <h2
     style={{
       textAlign: 'center',
@@ -989,26 +1178,30 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
   >
     Top Selling Products
   </h2>
-  <div style={{
-    width: '60px',
-    height: '4px',
-    background: `linear-gradient(90deg, ${COLORS.primary}, transparent)`,
-    margin: '0 auto 2rem',
-    borderRadius: '2px'
-  }}></div>
-  <p style={{
-    textAlign: 'center',
-    color: '#888',
-    fontSize: '1.05rem',
-    marginBottom: 0,
-    maxWidth: '520px',
-    margin: '0 auto 3.5rem',
-    fontWeight: '500',
-    letterSpacing: '0.3px'
-  }}>
+
+  <div
+    style={{
+      width: '60px',
+      height: '4px',
+      background: `linear-gradient(90deg, ${COLORS.primary}, transparent)`,
+      margin: '0 auto 2rem',
+      borderRadius: '2px'
+    }}
+  />
+
+  <p
+    style={{
+      textAlign: 'center',
+      color: '#888',
+      fontSize: '1.05rem',
+      maxWidth: '520px',
+      margin: '0 auto 3.5rem',
+      fontWeight: '500',
+      letterSpacing: '0.3px'
+    }}
+  >
     Explore our most popular electrical solutions trusted by thousands of customers
   </p>
-
   <div className="card-grid">
     <FeatureProductCard
       title={productsData[2].name}
