@@ -129,7 +129,7 @@ const CustomStyles = () => (
             .container {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 0 1rem;
+                padding: 0 0.5rem;
             }
             .button {
                 background-color: ${COLORS.secondary}; /* Red */
@@ -157,8 +157,196 @@ const CustomStyles = () => (
             }
             .card-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2rem;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 5rem;
+                padding: 3rem 0;
+            }
+
+            /* Feature product card (Top Selling Products) */
+            .feature-card {
+                text-align: center;
+                padding: 4rem 2.5rem;
+                border-radius: 28px;
+                background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,250,250,0.99));
+                box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+                border: 2px solid rgba(255,59,48,0.1);
+                transition: all 300ms cubic-bezier(.2,.9,.2,1);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                overflow: hidden;
+                min-height: 600px;
+            }
+            .feature-card::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, rgba(255,59,48,0.08), transparent);
+                border-radius: 50%;
+                pointer-events: none;
+            }
+            .feature-card:hover {
+                transform: translateY(-16px) scale(1.03);
+                box-shadow: 0 40px 80px rgba(255,59,48,0.2);
+                border-color: rgba(255,59,48,0.3);
+            }
+            .feature-card-image {
+                width: 100%;
+                height: 22rem; /* 352px */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 2.5rem;
+                border-radius: 20px;
+                overflow: hidden;
+                background: linear-gradient(135deg, #ffffff, #f8f9ff);
+                border: 2px solid rgba(255,59,48,0.08);
+                transition: all 300ms ease;
+            }
+            .feature-card:hover .feature-card-image {
+                border-color: rgba(255,59,48,0.15);
+                background: linear-gradient(135deg, #ffffff, #fff5f3);
+            }
+            .feature-card-image img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: contain;
+                display: block;
+                transition: transform 260ms ease;
+            }
+            .feature-card:hover .feature-card-image img {
+                transform: scale(1.02);
+            }
+            .feature-card-body { width: 100%; }
+            .feature-badge {
+                display: inline-block;
+                background: rgba(255,59,48,0.08);
+                color: ${COLORS.secondary};
+                padding: 0.25rem 0.6rem;
+                border-radius: 999px;
+                font-weight: 700;
+                font-size: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            .feature-title {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: ${COLORS.primary};
+                margin: 0.5rem 0 0.8rem;
+                line-height: 1.3;
+            }
+            .feature-desc {
+                color: #666;
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                min-height: 3.5rem;
+                line-height: 1.5;
+            }
+            .feature-cta {
+                background: ${COLORS.secondary};
+                color: ${COLORS.textLight};
+                padding: 0.6rem 0.9rem;
+                border-radius: 10px;
+                border: none;
+                cursor: pointer;
+                font-weight: 700;
+                box-shadow: 0 8px 20px rgba(255,59,48,0.12);
+                transition: transform 160ms ease, box-shadow 160ms ease;
+                display: inline-block;
+            }
+            .feature-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(255,59,48,0.16); }
+
+            /* Enhanced Almods Advantage visuals */
+            .advantage-section {
+                padding-top: 2rem;
+                padding-bottom: 3.5rem;
+                background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
+                border-top: 1px solid rgba(13,13,13,0.02);
+            }
+            .advantage-section p { color: #666; }
+            .advantage-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1.25rem;
+            }
+            .advantage-card {
+                position: relative;
+                overflow: visible;
+                padding: 1.3rem;
+                padding-left: 1.2rem;
+                border-radius: 16px;
+                background: linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+                border: 1px solid rgba(10, 10, 12, 0.04);
+                box-shadow: 0 12px 40px rgba(10, 18, 30, 0.06);
+                transition: transform 260ms cubic-bezier(.2,.85,.25,1), box-shadow 260ms ease, opacity 260ms ease;
+                display: flex;
+                flex-direction: column;
+            }
+            .advantage-card::before {
+                /* subtle diagonal highlight */
+                content: '';
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background: linear-gradient(120deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 35%);
+                mix-blend-mode: overlay;
+                border-radius: inherit;
+            }
+            .advantage-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 34px 80px rgba(10, 18, 40, 0.12);
+            }
+            .advantage-icon {
+                width: 56px;
+                height: 56px;
+                border-radius: 12px;
+                background: linear-gradient(90deg, #00eaff, ${COLORS.secondary});
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: ${COLORS.textLight};
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+                box-shadow: 0 12px 30px rgba(10,30,50,0.08);
+                position: relative;
+            }
+            .advantage-icon::after {
+                content: '';
+                position: absolute;
+                left: -6px;
+                top: -6px;
+                right: -6px;
+                bottom: -6px;
+                border-radius: 14px;
+                filter: blur(14px);
+                opacity: 0.18;
+                background: linear-gradient(90deg, rgba(0,234,255,0.25), rgba(255,59,48,0.18));
+                z-index: -1;
+            }
+            .advantage-title { font-size: 1.08rem; font-weight: 800; color: ${COLORS.primary}; margin: 0 0 0.4rem; }
+            .advantage-desc { color: #444; margin: 0; font-size: 0.98rem; line-height: 1.4; }
+
+            /* gentle icon float animation */
+            @keyframes floatIcon {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-6px); }
+            }
+            .advantage-icon svg { animation: floatIcon 4.5s ease-in-out infinite alternate; }
+
+            @media (max-width: 768px) {
+                .feature-card-image {
+                    height: 10rem; /* 160px on small screens */
+                }
+                .feature-title { font-size: 0.98rem; }
+                .feature-desc { font-size: 0.9rem; }
+                .advantage-grid { gap: 1rem; grid-template-columns: 1fr; }
+                .advantage-card { padding: 1rem; border-radius: 12px; }
+                .advantage-icon { width: 48px; height: 48px; }
             }
 
             /* Responsive Logo Size */
@@ -172,15 +360,23 @@ const CustomStyles = () => (
                 position: relative;
                 width: 100%;
                 /* Desktop Height: 50% of viewport height for high impact */
-                height: 50vh; 
+                height: 55vh; 
                 overflow: hidden;
+                perspective: 1200px;
             }
+            .hero-decor { position: absolute; inset: 0; pointer-events: none; }
+            .hero-decor .dot { position: absolute; border-radius: 999px; opacity: 0.14; filter: blur(14px); transform: translate3d(0,0,0); }
+            .hero-decor .one { width: 160px; height: 160px; left: 6%; top: 12%; background: linear-gradient(90deg, #00eaff, ${COLORS.secondary}); }
+            .hero-decor .two { width: 120px; height: 120px; right: 8%; top: 22%; background: linear-gradient(90deg, rgba(255,59,48,0.9), #ff9a80); }
+            .hero-decor .three { width: 220px; height: 220px; left: 38%; top: -12%; background: linear-gradient(90deg, rgba(0,234,255,0.7), rgba(255,59,48,0.5)); opacity: 0.09; }
             .hero-image {
                 width: 100%;
                 height: 100%; 
                 object-fit: cover; /* Ensure it covers the area */
-                transition: transform 0.3s ease;
+                transition: transform 0.8s cubic-bezier(.2,.9,.2,1);
+                will-change: transform;
             }
+            .hero-image-container:hover .hero-image { transform: scale(1.035) translateZ(0); }
             .hero-overlay {
                 position: absolute;
                 top: 0;
@@ -192,8 +388,35 @@ const CustomStyles = () => (
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                /* Dark overlay for text contrast and legibility */
-                background-color: rgba(0, 0, 0, 0.45); 
+                /* Dark gradient overlay for text contrast and legibility */
+                background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.48));
+                padding: 2rem 1rem;
+            }
+            .hero-wave { display: block; width: 100%; height: 80px; margin-top: -2px; }
+
+            /* CTA outline button */
+            .button-outline { background: transparent; border: 2px solid ${COLORS.primary}; color: ${COLORS.primary}; padding: 0.7rem 1.2rem; border-radius: 999px; transition: all 220ms ease; font-weight:700; }
+            .button-outline:hover { background: ${COLORS.primary}; color: ${COLORS.textLight}; transform: translateY(-3px); box-shadow: 0 10px 28px rgba(29,29,31,0.12); }
+
+            /* Card entrance and tilt */
+            .card-grid { perspective: 1200px; }
+            .card-grid .feature-card { opacity: 0; transform: translateY(10px) scale(0.995); animation: fadeUp 520ms cubic-bezier(.2,.85,.25,1) both; }
+            .card-grid .feature-card:nth-child(1) { animation-delay: 0.06s; }
+            .card-grid .feature-card:nth-child(2) { animation-delay: 0.12s; }
+            .card-grid .feature-card:nth-child(3) { animation-delay: 0.18s; }
+            @keyframes fadeUp { to { opacity: 1; transform: translateY(0) scale(1); } }
+            @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+            @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+            @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+
+            .feature-card { transform-origin: center; will-change: transform; }
+            .feature-card:hover { transform: translateY(-12px) rotateX(3deg) rotateY(1.2deg); box-shadow: 0 38px 78px rgba(13,13,13,0.14); }
+
+            @media (max-width: 768px) {
+                .hero-image-container { height: 40vh; }
+                .hero-decor .one, .hero-decor .two, .hero-decor .three { display: none; }
+                .card-grid .feature-card { animation: none; opacity: 1; transform: none; }
+                .button-outline { padding: 0.6rem 1rem; }
             }
             .hero-title {
                 color: ${COLORS.textLight}; /* White text */
@@ -246,27 +469,38 @@ const CustomStyles = () => (
                     display: none;
                     flex-direction: column;
                     position: absolute;
-                    top: 100%; /* Below the header */
+                    top: 100%;
                     left: 0;
                     width: 100%;
-                    background-color: ${COLORS.primary}; /* Dark background for mobile dropdown */
-                    padding: 1rem 0;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                    background: linear-gradient(180deg, #1D1D1F, #252830);
+                    padding: 0.5rem 0;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
                     z-index: 50;
+                    backdrop-filter: blur(10px);
                 }
                 .nav-links.open {
                     display: flex;
+                    animation: slideDown 250ms ease;
                 }
                 .nav-links a {
-                    padding: 0.75rem 2rem;
-                    text-align: center;
-                    color: ${COLORS.textLight}; /* White text in dark dropdown */
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    padding: 0.8rem 2rem;
+                    text-align: left;
+                    color: #ffffff;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                    font-weight: 500;
+                    transition: all 200ms ease;
+                }
+                .nav-links a:hover {
+                    background: rgba(255, 59, 48, 0.1);
+                    color: #FF3B30;
+                    padding-left: 2.5rem;
                 }
                 .nav-links a:last-child {
                     border-bottom: none;
                 }
                 
+                @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
                 /* Specs grid should become 1 column on mobile */
                 .specs-grid-desktop {
                     grid-template-columns: 1fr !important;
@@ -279,6 +513,56 @@ const CustomStyles = () => (
                 .hero-title {
                     font-size: 2rem;
                 }
+                    .feature-card-image {
+  width: 100%;
+  height: 10rem; /* 160px on small screens */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.feature-card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+                /* Mobile product card grid - 1 column */
+                .card-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 2.5rem !important;
+                    padding: 2rem 0 !important;
+                }
+                .card {
+                    padding: 1.5rem !important;
+                    border-radius: 16px !important;
+                    box-shadow: 0 8px 24px rgba(0,0,0,0.06) !important;
+                }
+                .card img {
+                    height: 180px !important;
+                }
+                /* Products page mobile heading */
+                #products-page h2 {
+                    font-size: 2.2rem !important;
+                }
+                .feature-card {
+                    padding: 2.5rem 1.5rem !important;
+                    min-height: auto !important;
+                    border-radius: 20px !important;
+                }
+                .feature-card-image {
+                    height: 14rem !important;
+                    margin-bottom: 1.5rem !important;
+                }
+                .feature-title {
+                    font-size: 1.1rem !important;
+                }
+                .feature-desc {
+                    font-size: 0.9rem !important;
+                    min-height: 3rem !important;
+                }
+
             }
             /* Desktop Viewpoint Adjustments (min-width: 769px) */
             @media (min-width: 769px) {
@@ -286,6 +570,60 @@ const CustomStyles = () => (
                 .header-logo {
                     height: 60px; 
                 }
+                
+                /* Desktop Navigation Styles */
+                .menu-icon {
+                    display: none;
+                }
+                .nav-links {
+                    display: flex;
+                    position: static;
+                    background: none;
+                    backdrop-filter: none;
+                    padding: 0;
+                    gap: 0.5rem;
+                    box-shadow: none;
+                }
+                .nav-links a {
+                    color: #1D1D1F;
+                    padding: 0.6rem 1.2rem;
+                    border: none;
+                    border-radius: 6px;
+                    font-weight: 500;
+                    font-size: 0.95rem;
+                    transition: all 300ms ease;
+                    position: relative;
+                }
+                .nav-links a:hover {
+                    color: #FF3B30;
+                    background: rgba(255, 59, 48, 0.08);
+                    padding-left: 1.2rem;
+                }
+                .nav-item {
+                    position: relative;
+                }
+                .nav-item .nav-indicator {
+                    height: 3px;
+                    width: 0;
+                    background: #FF3B30;
+                    position: absolute;
+                    bottom: -8px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border-radius: 2px;
+                    animation: slideIn 300ms ease forwards;
+                }
+                
+                @keyframes slideIn {
+                    from { width: 0; }
+                    to { width: 30px; }
+                }
+                
+                /* Product card image sizing for desktop */
+                .feature-card-image {
+                    height: 12rem; /* 192px on desktop */
+                }
+                
                  /* Ensure 2 columns for specs on desktop */
                  .specs-grid-desktop {
                     grid-template-columns: 1fr 1fr;
@@ -304,64 +642,86 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
 
     return (
         <header style={{ 
-            backgroundColor: COLORS.background, // White Header
+            backgroundColor: COLORS.background,
             color: COLORS.textDark, 
-            padding: '1rem 0',
+            padding: '0.85rem 0',
             position: 'sticky',
             top: 0,
             zIndex: 10,
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)'
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
+            backdropFilter: 'blur(10px)',
+            background: 'rgba(255, 255, 255, 0.96)'
         }}>
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center'
-            }} className="container">
+                alignItems: 'center',
+                width: '100%',
+                margin: 0,
+                padding: '0 1rem'
+            }}>
                 
-                {/* LOGO IMAGE REPLACING TEXT - Responsive height managed by CSS class */}
+                {/* LOGO */}
                 <img 
                     src="/images/almodslogo.png"
                     alt="Almods Electronics Logo"
                     onClick={() => setCurrentPage('home')}
-                    className="header-logo" // Add class to target in CSS
+                    className="header-logo"
                     style={{
-                        width: 'auto', // Maintain aspect ratio
-                        maxWidth: '100%', // Ensures it doesn't overflow on tiny screens
+                        width: 'auto',
+                        maxWidth: '100%',
+                        height: '50px',
                         margin: 0,
                         cursor: 'pointer',
-                        borderRadius: '5px' 
+                        transition: 'transform 200ms ease'
                     }}
                 />
                 
-                {/* Mobile Menu Icon - Dark Bars on White Background */}
-                <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(-45deg) translate(-5px, 6px)' : 'none' }}></div>
-                    <div style={{ background: COLORS.textDark, opacity: isMenuOpen ? 0 : 1 }}></div>
-                    <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(45deg) translate(-5px, -6px)' : 'none' }}></div>
+                {/* Mobile Menu Icon */}
+                <div className="menu-icon" onClick={() => setIsMenuOpen(!isMenuOpen)} style={{ cursor: 'pointer' }}>
+                    <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(-45deg) translate(-5px, 6px)' : 'none', transition: 'all 300ms ease' }}></div>
+                    <div style={{ background: COLORS.textDark, opacity: isMenuOpen ? 0 : 1, transition: 'opacity 300ms ease' }}></div>
+                    <div style={{ background: COLORS.textDark, transform: isMenuOpen ? 'rotate(45deg) translate(-5px, -6px)' : 'none', transition: 'all 300ms ease' }}></div>
                 </div>
 
-                {/* Desktop and Mobile Navigation Links */}
+                {/* Navigation Links */}
                 <nav className={`nav-links ${isMenuOpen ? 'open' : ''}`}
                     style={{
                         display: 'flex',
-                        gap: '2rem',
+                        gap: '0.5rem',
                     }}
                 >
                     {navItems.map((item) => (
                         <a
                             key={item.name}
                             onClick={() => handleNavClick(item.page)}
+                            className={`nav-item ${currentPage === item.page ? 'active' : ''}`}
                             style={{
-                                color: isMenuOpen ? COLORS.textLight : COLORS.textDark, // Dark text on desktop
+                                color: currentPage === item.page ? COLORS.secondary : COLORS.textDark,
                                 textDecoration: 'none',
                                 fontWeight: currentPage === item.page ? '700' : '500',
-                                borderBottom: currentPage === item.page ? `2px solid ${COLORS.secondary}` : 'none', // Red accent
-                                paddingBottom: '0.25rem',
-                                transition: 'all 0.1s',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '8px',
+                                transition: 'all 200ms ease',
                                 cursor: 'pointer',
+                                position: 'relative',
+                                fontSize: '0.95rem',
+                                whiteSpace: 'nowrap'
                             }}
                         >
                             {item.name}
+                            {currentPage === item.page && (
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '-8px',
+                                    left: '1rem',
+                                    right: '1rem',
+                                    height: '3px',
+                                    background: COLORS.secondary,
+                                    borderRadius: '2px',
+                                    animation: 'slideIn 200ms ease'
+                                }}/>
+                            )}
                         </a>
                     ))}
                 </nav>
@@ -392,11 +752,6 @@ const Footer = () => {
                     Almods Electronics
                 </h3>
                 <p>&copy; {new Date().getFullYear()} Almods Electronics. All rights reserved.</p>
-                <div style={{ marginTop: '0.5rem' }}>
-                    <a href="#" style={{ color: COLORS.secondary, textDecoration: 'none', margin: '0 0.5rem' }}>Privacy Policy</a>
-                    <span style={{ color: '#aaa' }}>|</span>
-                    <a href="#" style={{ color: COLORS.secondary, textDecoration: 'none', margin: '0 0.5rem' }}>Terms of Service</a>
-                </div>
             </div>
         </footer>
     );
@@ -405,23 +760,36 @@ const Footer = () => {
 // --- 5. PAGE COMPONENTS (For PageRouter) ---
 
 // Used for Home Page top-selling products (simplified card)
-const FeatureProductCard = ({ title, description }) => (
-    <div className="card" style={{ textAlign: 'left', padding: '1.5rem' }}>
-        <h3 style={{ color: COLORS.primary, fontSize: '1.4rem', marginBottom: '0.5rem' }}>{title}</h3>
-        <p style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: '#555' }}>{description}</p>
-        <button className="button" style={{ padding: '0.6rem 1.2rem', fontSize: '0.9rem' }}>View Detail</button>
+const FeatureProductCard = ({ title, description, image, onSelect }) => {
+  return (
+    <div className="feature-card">
+      <div className="feature-card-image">
+        <img src={image} alt={title} />
+      </div>
+
+      <div className="feature-card-body">
+        <div className="feature-badge">Top Seller</div>
+        <h3 className="feature-title">{title}</h3>
+        <p className="feature-desc">{description}</p>
+      <button type="button" className="button" onClick={onSelect} style={{ padding: '0.6rem 1rem', fontSize: '0.9rem', alignSelf: 'flex-start' }}>Explore Product</button>
+      </div>
+    </div>
+  );
+};
+
+
+
+
+const AdvantagePoint = ({ icon, title, description }) => (
+    <div className="advantage-card">
+        <div className="advantage-icon">{icon}</div>
+        <h4 className="advantage-title">{title}</h4>
+        <p className="advantage-desc">{description}</p>
     </div>
 );
 
-const AdvantagePoint = ({ title, description }) => (
-    <div className="card" style={{ textAlign: 'left', backgroundColor: COLORS.background, borderLeft: `5px solid ${COLORS.secondary}`, padding: '1.5rem' }}>
-        <h4 style={{ color: COLORS.primary, fontSize: '1.1rem', fontWeight: '700', marginBottom: '0.5rem' }}>{title}</h4>
-        <p style={{ margin: 0, fontSize: '0.9rem', color: '#555' }}>{description}</p>
-    </div>
-);
 
-
-const HomePage = () => (
+const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
     <div>
         {/* --- Hero Section: Full-Width Image with Text Overlay --- */}
         <div className="hero-image-container">
@@ -432,84 +800,292 @@ const HomePage = () => (
                 className="hero-image" 
                 onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/1920x800/1D1D1F/FF3B30?text=POWER+STABILITY'; }}
             />
+
+            {/* Decorative floating accents (purely visual) */}
+            <div className="hero-decor" aria-hidden>
+                <div className="dot one"/>
+                <div className="dot two"/>
+                <div className="dot three"/>
+            </div>
+
             {/* Text Overlay for visibility */}
             <div className="hero-overlay">
                 <div className="container">
-                    <h2 className="hero-title">
-                        NOW DEALS IN SOLAR PLANTS
-                    </h2>
-                    <p style={{ 
-                        fontSize: '1.2rem', 
-                        lineHeight: '1.6', 
-                        // Adjusted margins for overlay
-                        margin: '0 auto 2rem auto',
-                        color: COLORS.textLight, 
-                        maxWidth: '600px',
-                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)'
+                    <div style={{
+                        animation: 'fadeInDown 0.8s ease-out'
                     }}>
-                        Safeguarding your systems with <strong style={{color: COLORS.secondary}}>Almods  Stabilizers & Servo</strong>—where performance meets uncompromised reliability.
+                        <h2 className="hero-title" style={{
+                            fontSize: '4rem',
+                            fontWeight: '900',
+                            letterSpacing: '-2px',
+                            marginBottom: '1.5rem',
+                            lineHeight: '1.1',
+                            backgroundImage: `linear-gradient(135deg, #ffffff, #e0e0e0)`,
+                            backgroundClip: 'text',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            textShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                            position: 'relative'
+                        }}>
+                            NOW DEALS IN<br/>SOLAR PLANTS
+                        </h2>
+                    </div>
+
+                    {/* Decorative line */}
+                    <div style={{
+                        width: '80px',
+                        height: '5px',
+                        background: `linear-gradient(90deg, #FF3B30, transparent)`,
+                        marginBottom: '2rem',
+                        borderRadius: '3px',
+                        animation: 'slideInLeft 0.8s ease-out 0.2s both'
+                    }}></div>
+
+                    <p style={{ 
+                        fontSize: '1.3rem', 
+                        lineHeight: '1.8', 
+                        margin: '0 auto 2.5rem auto',
+                        color: COLORS.textLight, 
+                        maxWidth: '720px',
+                        textShadow: '0 3px 10px rgba(0, 0, 0, 0.4)',
+                        fontWeight: '500',
+                        letterSpacing: '0.3px',
+                        animation: 'fadeInUp 0.8s ease-out 0.3s both'
+                    }}>
+                        Safeguarding your systems with <strong style={{
+                            color: '#FF5252',
+                            fontWeight: '700',
+                            textShadow: '0 2px 8px rgba(255, 59, 48, 0.3)'
+                        }}>Almods Stabilizers, Servo & Solar Solutions</strong>—where performance meets uncompromised reliability and innovation.
                     </p>
-                    <button className="button" style={{ fontSize: '1.1rem' }}>
-                        Discover Our Stabilizers
-                    </button>
+
+                    {/* CTA Buttons with enhanced styling */}
+                    <div style={{ 
+                        display: 'flex', 
+                        gap: '1.5rem', 
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        flexWrap: 'wrap',
+                        animation: 'fadeInUp 0.8s ease-out 0.5s both'
+                    }}>
+                        <button onClick={() => setCurrentPage('products')} className="button" style={{ 
+                            fontSize: '1.1rem',
+                            fontWeight: '700',
+                            padding: '1rem 2.2rem',
+                            borderRadius: '12px',
+                            boxShadow: '0 8px 24px rgba(255, 59, 48, 0.3)',
+                            transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
+                            letterSpacing: '0.5px',
+                            cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.transform = 'translateY(-4px)';
+                            e.target.style.boxShadow = '0 16px 40px rgba(255, 59, 48, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = '0 8px 24px rgba(255, 59, 48, 0.3)';
+                        }}>
+                            ⚡ Discover Our Stabilizers
+                        </button>
+                        <button onClick={() => setCurrentPage('contact')} className="button-outline" style={{ 
+                            fontSize: '1.1rem',
+                            fontWeight: '700',
+                            padding: '1rem 2.2rem',
+                            borderRadius: '12px',
+                            color: '#ffffff',
+                            border: '2px solid rgba(255, 255, 255, 0.6)',
+                            background: 'rgba(255, 255, 255, 0.08)',
+                            backdropFilter: 'blur(10px)',
+                            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+                            transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
+                            letterSpacing: '0.5px',
+                            cursor: 'pointer'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.target.style.transform = 'translateY(-4px)';
+                            e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+                            e.target.style.boxShadow = '0 16px 40px rgba(255, 255, 255, 0.15)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.background = 'rgba(255, 255, 255, 0.08)';
+                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+                            e.target.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.2)';
+                        }}>
+                            📞 Request Consultation
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {/* Decorative SVG wave between hero and content */}
+        <svg className="hero-wave" viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <defs>
+                <linearGradient id="waveGrad" x1="0" x2="1">
+                    <stop offset="0%" stopColor="#fafbff" />
+                    <stop offset="100%" stopColor="#ffffff" />
+                </linearGradient>
+            </defs>
+            <path fill="url(#waveGrad)" d="M0,32 C180,120 360,8 720,48 C1080,88 1260,24 1440,80 L1440 120 L0 120 Z"></path>
+        </svg>
         {/* --- End Hero Section --- */}
         
         {/* Top Selling Products Section */}
-        <div className="container" style={{ padding: '4rem 0' }}> {/* Added 4rem top padding for spacing after the large hero */}
-            <h2 style={{ 
-                textAlign: 'center', 
-                color: COLORS.primary, 
-                fontSize: '2.2rem', 
-                marginBottom: '2rem' 
-            }}>
-                Top Selling Products
-            </h2>
-            <div className="card-grid">
-                <FeatureProductCard 
-                    title={productsData[0].name} 
-                    description={productsData[0].detail} 
-                />
-                <FeatureProductCard 
-                    title={productsData[1].name} 
-                    description={productsData[1].detail} 
-                />
-                <FeatureProductCard 
-                    title={productsData[2].name} 
-                    description={productsData[2].detail} 
-                />
+       <div className="container" style={{ padding: '6rem 0.5rem 4rem' }}>
+  <h2
+    style={{
+      textAlign: 'center',
+      color: COLORS.primary,
+      fontSize: '3.2rem',
+      marginBottom: '0.75rem',
+      marginTop: 0,
+      fontWeight: '800',
+      letterSpacing: '-0.8px',
+      backgroundImage: `linear-gradient(135deg, ${COLORS.primary}, #FF5252)`,
+      backgroundClip: 'text',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      textShadow: 'none',
+      position: 'relative',
+      paddingBottom: '0.5rem'
+    }}
+  >
+    Top Selling Products
+  </h2>
+  <div style={{
+    width: '60px',
+    height: '4px',
+    background: `linear-gradient(90deg, ${COLORS.primary}, transparent)`,
+    margin: '0 auto 2rem',
+    borderRadius: '2px'
+  }}></div>
+  <p style={{
+    textAlign: 'center',
+    color: '#888',
+    fontSize: '1.05rem',
+    marginBottom: 0,
+    maxWidth: '520px',
+    margin: '0 auto 3.5rem',
+    fontWeight: '500',
+    letterSpacing: '0.3px'
+  }}>
+    Explore our most popular electrical solutions trusted by thousands of customers
+  </p>
+
+  <div className="card-grid">
+    <FeatureProductCard
+      title={productsData[2].name}
+      description={productsData[2].detail}
+      image={productsData[2].image}
+      onSelect={() => { setSelectedProductId(productsData[2].id); setCurrentPage('product'); }}
+    />
+
+    <FeatureProductCard
+      title={productsData[4].name}
+      description={productsData[4].detail}
+      image={productsData[4].image}
+      onSelect={() => { setSelectedProductId(productsData[4].id); setCurrentPage('product'); }}
+    />
+
+    <FeatureProductCard
+      title={productsData[5].name}
+      description={productsData[5].detail}
+      image={productsData[5].image}
+      onSelect={() => { setSelectedProductId(productsData[5].id); setCurrentPage('product'); }}
+    />
+  </div>
+
+  <div style={{ textAlign: 'center', marginTop: '2.25rem' }}>
+    <button onClick={() => setCurrentPage('products')} className="button-outline">View All Products</button>
+  </div>
+
+</div>
+
+{/* About Us Teaser Section */}
+<div style={{ backgroundColor: 'linear-gradient(180deg, #ffffff, #f8f9fb)', padding: '4rem 0' }}>
+    <div className="container">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+            {/* Left: Text */}
+            <div>
+                <p style={{ color: COLORS.secondary, fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.5rem' }}>WHO WE ARE</p>
+                <h2 style={{ color: COLORS.primary, fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.3 }}>Almods Electronics</h2>
+                <p style={{ color: '#333', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
+                    34+ years of innovation and excellence in electrical solutions. We manufacture industry-leading voltage stabilizers, inverters, and solar solutions trusted by thousands across India.
+                </p>
+                <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                    <div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}>34+</div>
+                        <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Years</p>
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}>10k+</div>
+                        <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Customers</p>
+                    </div>
+                </div>
+                <button onClick={() => setCurrentPage('about')} className="button" style={{ fontSize: '0.98rem' }}>Learn More About Us</button>
+            </div>
+
+            {/* Right: Visual Card with Stats */}
+            <div>
+                <div style={{ background: 'linear-gradient(180deg, #ffffff, #fbfcff)', borderRadius: '16px', padding: '2rem', border: '1px solid rgba(13,13,13,0.04)', boxShadow: '0 12px 40px rgba(10,18,30,0.08)' }}>
+                    <div style={{ marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid rgba(13,13,13,0.06)' }}>
+                        <p style={{ color: COLORS.secondary, fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.3rem', letterSpacing: '0.6px' }}>Located In</p>
+                        <h4 style={{ color: COLORS.primary, fontSize: '1.3rem', fontWeight: 800, margin: 0 }}>Lucknow</h4>
+                    </div>
+                    <div style={{ marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid rgba(13,13,13,0.06)' }}>
+                        <p style={{ color: COLORS.secondary, fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.3rem', letterSpacing: '0.6px' }}>Our Mission</p>
+                        <p style={{ color: '#333', fontSize: '0.95rem', margin: 0, lineHeight: 1.5 }}>Superior quality electrical products with excellence in service and innovation.</p>
+                    </div>
+                    <div>
+                        <p style={{ color: COLORS.secondary, fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.3rem', letterSpacing: '0.6px' }}>Our Vision</p>
+                        <p style={{ color: '#333', fontSize: '0.95rem', margin: 0, lineHeight: 1.5 }}>Trusted leader in electrical solutions industry, delivering quality and reliability.</p>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+</div>
 
         {/* The Almods Advantage Section */}
         <div style={{ backgroundColor: '#f9f9f9', padding: '4rem 0' }}>
-            <div className="container">
+            <div className="container advantage-section">
                 <h2 style={{ 
                     textAlign: 'center', 
                     color: COLORS.primary, 
                     fontSize: '2.2rem', 
-                    marginBottom: '2rem' 
+                    marginBottom: '0.5rem',
+                    fontWeight: 800
                 }}>
                     The Almods Advantage
                 </h2>
-                <div className="card-grid">
-                    <AdvantagePoint 
-                        title="Aerospace-Grade Components" 
-                        description="Sourced from certified suppliers, guaranteeing internal component stability under continuous heavy load." 
+                <p style={{ textAlign: 'center', color: '#666', maxWidth: '820px', margin: '0 auto 2rem' }}>
+                    Built from the ground up for endurance — precision engineering, robust circuit protection, and global safety compliance.
+                </p>
+
+                <div className="advantage-grid">
+                    <AdvantagePoint
+                        icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15 8H9L12 2Z" fill="white" opacity=".9"/><path d="M4 13h16v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z" fill="white" opacity=".9"/></svg>}
+                        title="Aerospace-Grade Components"
+                        description="Premium-grade transformers, capacitors and thermal-rated parts chosen for high reliability under continuous heavy loads."
                     />
-                    <AdvantagePoint 
-                        title="AI-Enhanced Diagnostics" 
-                        description="Predictive failure detection monitors component health, minimizing unexpected downtime and maximizing lifespan." 
+
+                    <AdvantagePoint
+                        icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v18" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M3 12h18" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                        title="Circuit-Level Reliability"
+                        description="Multi-stage surge suppression, EMI/RFI filtering, and optimized PCB layout reduce electrical stress and thermal hotspots — keeping systems stable for years."
                     />
-                    <AdvantagePoint 
-                        title="Global Compliance Certified" 
-                        description="Meets all major international safety and quality standards (UL, CE, ISO) for global integration." 
+
+                    <AdvantagePoint
+                        icon={<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                        title="Global Compliance Certified"
+                        description="Designed and tested to meet major international safety and quality standards (UL, CE, ISO) for global deployment and peace of mind."
                     />
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
 );
 
@@ -517,39 +1093,68 @@ const HomePage = () => (
 const ProductGridCard = ({ product, onExploreClick }) => (
     <div className="card" style={{ 
         textAlign: 'left', 
-        padding: '1rem', 
+        padding: '1.8rem', 
         display: 'flex', 
         flexDirection: 'column', 
-        height: '100%', 
-        transition: 'box-shadow 0.3s' 
+        height: '100%',
+        borderRadius: '20px',
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,250,250,0.99))',
+        boxShadow: '0 12px 40px rgba(0,0,0,0.08)',
+        border: '1px solid rgba(255,59,48,0.08)',
+        transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
+        position: 'relative',
+        overflow: 'hidden'
+    }}
+    onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-12px) scale(1.02)';
+        e.currentTarget.style.boxShadow = '0 32px 64px rgba(255,59,48,0.15)';
+        e.currentTarget.style.borderColor = 'rgba(255,59,48,0.2)';
+    }}
+    onMouseLeave={(e) => {
+        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.08)';
+        e.currentTarget.style.borderColor = 'rgba(255,59,48,0.08)';
     }}>
-        <img 
-            src={product.image} 
-            alt={product.name} 
-            style={{ 
-                width: '100%', 
-                height: 'auto', 
-                minHeight: '150px', 
-                borderRadius: '8px', 
-                marginBottom: '1rem', 
-                objectFit: 'cover' 
-            }}
-            // Fallback for failed image load
-            onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/aaaaaa/333333?text=Product+Image'; }}
-        />
+        <div style={{
+            position: 'relative',
+            overflow: 'hidden',
+            borderRadius: '16px',
+            marginBottom: '1.5rem',
+            backgroundColor: '#f8f9ff',
+            border: '2px solid rgba(255,59,48,0.06)'
+        }}>
+            <img 
+                src={product.image} 
+                alt={product.name} 
+                style={{ 
+                    width: '100%', 
+                    height: '220px', 
+                    borderRadius: '16px', 
+                    objectFit: 'contain',
+                    padding: '1rem',
+                    backgroundColor: '#ffffff',
+                    transition: 'transform 300ms ease'
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/400x300/aaaaaa/333333?text=Product+Image'; }}
+            />
+        </div>
         <h3 style={{ 
             color: COLORS.primary, 
-            fontSize: '1.2rem', 
-            marginBottom: '0.5rem', 
-            fontWeight: '700' 
+            fontSize: '1.25rem', 
+            marginBottom: '0.75rem', 
+            fontWeight: '700',
+            lineHeight: '1.3'
         }}>
             {product.name}
         </h3>
         <p style={{ 
-            margin: '0 0 1rem 0', 
-            fontSize: '0.9rem', 
-            color: '#555', 
-            flexGrow: 1 
+            margin: '0 0 1.5rem 0', 
+            fontSize: '0.95rem', 
+            color: '#666', 
+            flexGrow: 1,
+            lineHeight: '1.5'
         }}>
             {product.detail}
         </p>
@@ -557,9 +1162,21 @@ const ProductGridCard = ({ product, onExploreClick }) => (
             className="button" 
             onClick={() => onExploreClick(product)} 
             style={{ 
-                padding: '0.6rem 1rem', 
-                fontSize: '0.9rem', 
-                alignSelf: 'flex-start' 
+                padding: '0.75rem 1.5rem', 
+                fontSize: '0.95rem', 
+                fontWeight: '600',
+                alignSelf: 'flex-start',
+                borderRadius: '8px',
+                transition: 'all 200ms ease',
+                boxShadow: '0 4px 12px rgba(255,59,48,0.2)'
+            }}
+            onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 8px 20px rgba(255,59,48,0.3)';
+            }}
+            onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 12px rgba(255,59,48,0.2)';
             }}
         >
             Explore Product
@@ -568,7 +1185,7 @@ const ProductGridCard = ({ product, onExploreClick }) => (
 );
 
 // Component for the single product detail view
-const ProductDetails = ({ product, onBackClick }) => {
+const ProductDetails = ({ product, onBackClick, setCurrentPage }) => {
     // Define the specifications to display and their display names
     const specsToDisplay = [
         { label: "Product Highlight", key: "detail" }, // Full-width, high-impact feature
@@ -645,7 +1262,7 @@ const ProductDetails = ({ product, onBackClick }) => {
                         
                         {/* Moved CTA Button here for immediate visibility */}
                         <button className="button"
-                         onClick={onBackClick}
+                         onClick={() => setCurrentPage('contact')}
                           style={{ fontSize: '1.2rem' }}>
                             Contact Us &rarr;
                         </button>
@@ -724,30 +1341,79 @@ const ProductDetails = ({ product, onBackClick }) => {
 };
 
 
-const ProductsPage = ({ setCurrentPage }) => {
-    // State to hold the currently selected product for the detail view
-    const [selectedProduct, setSelectedProduct] = useState(null);
+const ProductsPage = ({ setCurrentPage, productsData, selectedProductId, setSelectedProductId }) => {
+    // Local selected product is derived from global selectedProductId
+    const [selectedProduct, setSelectedProduct] = useState(() => selectedProductId ? productsData.find(p => p.id === selectedProductId) : null);
+
+    // Sync if parent selectedProductId changes
+    React.useEffect(() => {
+        if (selectedProductId) {
+            const p = productsData.find(p => p.id === selectedProductId) || null;
+            setSelectedProduct(p);
+            // scroll to top when navigated from Home
+            if (p) window.scrollTo(0, 0);
+        } else {
+            setSelectedProduct(null);
+        }
+    }, [selectedProductId, productsData]);
 
     const handleExploreClick = (product) => {
         setSelectedProduct(product);
+        if (setSelectedProductId) setSelectedProductId(product.id);
+        if (setCurrentPage) setCurrentPage('product');
         // Optionally scroll to top
-        window.scrollTo(0, 0); 
+        window.scrollTo(0, 0);
     };
 
     const handleBackClick = () => {
         setSelectedProduct(null);
+        if (setSelectedProductId) setSelectedProductId(null);
     };
 
     // Conditional Rendering: Show details or show grid
     if (selectedProduct) {
-        return <ProductDetails product={selectedProduct} onBackClick={handleBackClick} />;
+        return <ProductDetails product={selectedProduct} onBackClick={handleBackClick} setCurrentPage={setCurrentPage} />;
     }
     
     return (
-        <div className="container" style={{ padding: '4rem 0' }}>
-            <h2 style={{ color: COLORS.primary, fontSize: '2.4rem', marginBottom: '2.5rem', textAlign: 'center', fontWeight: '800' }}>
-                All Almods Precision Stabilizers
+        <div className="container" style={{ padding: '6rem 0.5rem 4rem' }}>
+            <h2 style={{ 
+                color: COLORS.primary, 
+                fontSize: '3.2rem', 
+                marginBottom: '0.75rem',
+                marginTop: 0,
+                textAlign: 'center', 
+                fontWeight: '800',
+                letterSpacing: '-0.8px',
+                backgroundImage: `linear-gradient(135deg, ${COLORS.primary}, #FF5252)`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'fadeInDown 0.8s ease-out'
+            }}>
+                All Almods Stabilizers
             </h2>
+            <div style={{
+                width: '60px',
+                height: '4px',
+                background: `linear-gradient(90deg, ${COLORS.primary}, transparent)`,
+                margin: '0 auto 2rem',
+                borderRadius: '2px',
+                animation: 'slideInLeft 0.8s ease-out 0.2s both'
+            }}></div>
+            <p style={{
+                textAlign: 'center',
+                color: '#888',
+                fontSize: '1.05rem',
+                marginBottom: 0,
+                maxWidth: '560px',
+                margin: '0 auto 3.5rem',
+                fontWeight: '500',
+                letterSpacing: '0.3px',
+                animation: 'fadeInUp 0.8s ease-out 0.3s both'
+            }}>
+                Discover our complete range of precision voltage stabilizers engineered for maximum reliability
+            </p>
             
             {/* Displaying the 8 specific product cards */}
             <div className="card-grid">
@@ -858,11 +1524,12 @@ Interested In: ${selectedProducts.join(", ")}`;
 
 return (
     <div style={{ padding: "4rem 0" }}>
+        {/* Contact Form Card */}
         <div
             className="card"
             style={{
                 maxWidth: "500px",
-                margin: "0 auto",
+                margin: "0 auto 4rem",
                 textAlign: "center",
                 padding: "3rem",
             }}
@@ -873,6 +1540,7 @@ return (
                     fontSize: "2rem",
                     marginBottom: "1.5rem",
                     fontWeight: "700",
+                    animation: 'fadeInDown 0.8s ease-out'
                 }}
             >
                 Get in Touch with Almods
@@ -968,6 +1636,113 @@ return (
            
             </form>
         </div>
+
+        {/* Premium About Us Section */}
+        <div style={{
+            maxWidth: "650px",
+            margin: "0 auto",
+            padding: "3rem 2.5rem",
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.98), rgba(250,250,250,0.99))',
+            borderRadius: '20px',
+            border: '2px solid rgba(255,59,48,0.12)',
+            boxShadow: '0 12px 40px rgba(255,59,48,0.08)',
+            position: 'relative',
+            overflow: 'hidden',
+            animation: 'fadeInUp 0.8s ease-out 0.3s both'
+        }}>
+            {/* Decorative accent */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: `linear-gradient(90deg, ${COLORS.primary}, #FF5252)`,
+                borderRadius: '20px 20px 0 0'
+            }}></div>
+
+            <h3 style={{
+                color: COLORS.primary,
+                fontSize: '1.8rem',
+                marginBottom: '1rem',
+                marginTop: '0.5rem',
+                fontWeight: '800',
+                letterSpacing: '-0.5px'
+            }}>Why Choose Almods?</h3>
+            
+            <p style={{
+                color: '#555',
+                fontSize: '1rem',
+                lineHeight: '1.7',
+                marginBottom: '1.5rem',
+                fontWeight: '500'
+            }}>
+                With 34+ years of innovation and excellence, Almods Electronics has become the trusted name in voltage stabilization across India. We're committed to delivering premium electrical solutions engineered for reliability and performance.
+            </p>
+
+            {/* Highlights Grid */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1.5rem',
+                marginTop: '1.5rem'
+            }}>
+                <div style={{
+                    textAlign: 'center',
+                    padding: '1rem',
+                    borderRadius: '12px',
+                    background: 'rgba(255,59,48,0.05)'
+                }}>
+                    <div style={{
+                        fontSize: '1.8rem',
+                        fontWeight: '800',
+                        color: COLORS.primary,
+                        marginBottom: '0.25rem'
+                    }}>34+</div>
+                    <div style={{
+                        fontSize: '0.85rem',
+                        color: '#666',
+                        fontWeight: '600'
+                    }}>Years Experience</div>
+                </div>
+                <div style={{
+                    textAlign: 'center',
+                    padding: '1rem',
+                    borderRadius: '12px',
+                    background: 'rgba(255,59,48,0.05)'
+                }}>
+                    <div style={{
+                        fontSize: '1.8rem',
+                        fontWeight: '800',
+                        color: COLORS.primary,
+                        marginBottom: '0.25rem'
+                    }}>1000+</div>
+                    <div style={{
+                        fontSize: '0.85rem',
+                        color: '#666',
+                        fontWeight: '600'
+                    }}>Happy Customers</div>
+                </div>
+                <div style={{
+                    textAlign: 'center',
+                    padding: '1rem',
+                    borderRadius: '12px',
+                    background: 'rgba(255,59,48,0.05)'
+                }}>
+                    <div style={{
+                        fontSize: '1.8rem',
+                        fontWeight: '800',
+                        color: COLORS.primary,
+                        marginBottom: '0.25rem'
+                    }}>8+</div>
+                    <div style={{
+                        fontSize: '0.85rem',
+                        color: '#666',
+                        fontWeight: '600'
+                    }}>Product Ranges</div>
+                </div>
+            </div>
+        </div>
     </div>
 );
 
@@ -976,19 +1751,112 @@ return (
 
 
 
+const AboutPage = ({ setCurrentPage }) => (
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #fafbff, #ffffff)' }}>
+        {/* Hero Section */}
+        <div style={{ background: `linear-gradient(180deg, ${COLORS.primary}, #2a2a2e)`, color: COLORS.textLight, padding: '4rem 1rem', textAlign: 'center' }}>
+            <div className="container">
+                <h1 style={{ fontSize: '3.2rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2, animation: 'fadeInDown 0.8s ease-out' }}>About Almods Electronics</h1>
+                <p style={{ fontSize: '1.1rem', opacity: 0.9, maxWidth: '700px', margin: '0 auto', animation: 'fadeInUp 0.8s ease-out 0.2s both' }}>Empowering India with 34+ years of excellence in electrical solutions</p>
+            </div>
+        </div>
 
-// --- 6. PAGE ROUTER ---
-const PageRouter = ({ currentPage, setCurrentPage }) => {
+        {/* Main Content */}
+        <div className="container" style={{ padding: '4rem 1rem' }}>
+            {/* Introduction */}
+            <div style={{ maxWidth: '900px', margin: '0 auto 3rem', lineHeight: 1.8, animation: 'fadeInUp 0.8s ease-out 0.3s both' }}>
+                <h2 style={{ color: COLORS.primary, fontSize: '2rem', fontWeight: 800, marginBottom: '1rem' }}>Who We Are</h2>
+                <p style={{ fontSize: '1.05rem', color: '#333', marginBottom: '1rem' }}>
+                    Almods Electronics is a leading manufacturer of Automatic Voltage Stabilizers, Servo Voltage Stabilizers, Inverters, Batteries, and Solar Solutions. With over 45 years of experience, we have been committed to delivering high-quality, reliable, and efficient electrical solutions to our valued customers.
+                </p>
+                <p style={{ fontSize: '1.05rem', color: '#333' }}>
+                    Our manufacturing unit is located in Lucknow, equipped with state-of-the-art machinery and testing facilities to ensure that every product meets stringent quality standards.
+                </p>
+            </div>
+
+            {/* Three-column highlights */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+                <div style={{ background: 'linear-gradient(180deg, #ffffff, #fbfcff)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(13,13,13,0.04)', boxShadow: '0 12px 40px rgba(10,18,30,0.06)' }}>
+                    <h3 style={{ color: COLORS.secondary, fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Quality First</h3>
+                    <p style={{ color: '#555', fontSize: '0.98rem' }}>Our products are rigorously tested to comply with national standards, ensuring reliability and performance for both industrial and domestic applications.</p>
+                </div>
+
+                <div style={{ background: 'linear-gradient(180deg, #ffffff, #fbfcff)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(13,13,13,0.04)', boxShadow: '0 12px 40px rgba(10,18,30,0.06)' }}>
+                    <h3 style={{ color: COLORS.secondary, fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Customer-Centric</h3>
+                    <p style={{ color: '#555', fontSize: '0.98rem' }}>We strive to offer the best solutions at competitive prices, building long-term relationships with our clients based on trust, innovation, and consistent performance.</p>
+                </div>
+
+                <div style={{ background: 'linear-gradient(180deg, #ffffff, #fbfcff)', padding: '2rem', borderRadius: '16px', border: '1px solid rgba(13,13,13,0.04)', boxShadow: '0 12px 40px rgba(10,18,30,0.06)' }}>
+                    <h3 style={{ color: COLORS.secondary, fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem' }}>Innovation</h3>
+                    <p style={{ color: '#555', fontSize: '0.98rem' }}>Continually advancing our product range and manufacturing processes to meet evolving market demands and customer needs.</p>
+                </div>
+            </div>
+
+            {/* Mission & Vision */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2.5rem', marginBottom: '3rem' }}>
+                <div style={{ paddingLeft: '1.5rem', borderLeft: `4px solid ${COLORS.secondary}` }}>
+                    <h3 style={{ color: COLORS.primary, fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.75rem' }}>Our Mission</h3>
+                    <p style={{ color: '#333', fontSize: '1rem', lineHeight: 1.6 }}>To provide superior quality electrical products and solutions while maintaining excellence in service and innovation.</p>
+                </div>
+
+                <div style={{ paddingLeft: '1.5rem', borderLeft: `4px solid ${COLORS.secondary}` }}>
+                    <h3 style={{ color: COLORS.primary, fontSize: '1.3rem', fontWeight: 800, marginBottom: '0.75rem' }}>Our Vision</h3>
+                    <p style={{ color: '#333', fontSize: '1rem', lineHeight: 1.6 }}>To be recognized as a trusted leader in the electrical solutions industry, committed to delivering quality, reliability, and customer satisfaction.</p>
+                </div>
+            </div>
+
+            {/* Stats Section */}
+            <div style={{ background: `linear-gradient(90deg, ${COLORS.primary}, #2a2a2e)`, color: COLORS.textLight, padding: '3rem', borderRadius: '16px', textAlign: 'center', marginBottom: '3rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '2rem' }}>
+                    <div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>34+</div>
+                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Years of Experience</p>
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>10k+</div>
+                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Happy Customers</p>
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>8</div>
+                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Product Ranges</p>
+                    </div>
+                    <div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>Lucknow</div>
+                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Manufacturing HQ</p>
+                    </div>
+                </div>
+            </div>
+
+            {/* CTA */}
+            <div style={{ textAlign: 'center' }}>
+                <h3 style={{ color: COLORS.primary, fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem' }}>Ready to Experience Excellence?</h3>
+                <button onClick={setCurrentPage ? () => setCurrentPage('products') : null} className="button" style={{ fontSize: '1.05rem' }}>Explore Our Products</button>
+            </div>
+        </div>
+    </div>
+);
+
+const PageRouter = ({ currentPage, setCurrentPage, selectedProductId, setSelectedProductId, productsData }) => {
     switch (currentPage) {
         case 'home':
         case 'stability':
-            return <HomePage />;
+            return <HomePage setCurrentPage={setCurrentPage} setSelectedProductId={setSelectedProductId} />;
+        case 'product': {
+            const product = productsData.find(p => p.id === selectedProductId);
+            if (product) {
+                return <ProductDetails product={product} onBackClick={() => { setSelectedProductId(null); setCurrentPage('products'); }} setCurrentPage={setCurrentPage} />;
+            }
+            // If product not found, fall back to listing
+            return <ProductsPage setCurrentPage={setCurrentPage} productsData={productsData} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId} />;
+        }
         case 'products':
-            return <ProductsPage setCurrentPage={setCurrentPage} />;
+            return <ProductsPage setCurrentPage={setCurrentPage} productsData={productsData} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId} />;
+        case 'about':
+            return <AboutPage setCurrentPage={setCurrentPage} />;
         case 'contact':
             return <ContactPage />;
         default:
-            return <HomePage />;
+            return <HomePage setCurrentPage={setCurrentPage} setSelectedProductId={setSelectedProductId} />;
     }
 };
 
@@ -998,11 +1866,13 @@ const PageRouter = ({ currentPage, setCurrentPage }) => {
 const App = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState('home');
+    const [selectedProductId, setSelectedProductId] = useState(null);
 
     const navItems = [
         { name: 'Home', page: 'home' },
         { name: 'Products', page: 'products' },
         { name: 'Contact', page: 'contact' },
+        { name: 'About', page: 'about' },
     ];
 
     return (
@@ -1028,7 +1898,13 @@ const App = () => {
 
             <main style={{ flexGrow: 1 }}>
                 {/* Dynamically render the current page using the router */}
-                <PageRouter currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                <PageRouter
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                selectedProductId={selectedProductId}
+                setSelectedProductId={setSelectedProductId}
+                productsData={productsData}
+                />
             </main>
 
             <Footer />
