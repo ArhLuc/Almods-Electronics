@@ -1102,7 +1102,7 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
 
                     {/* Decorative line */}
                     <div style={{
-                        width: '80px',
+                        width: '83px',
                         height: '5px',
                         background: `linear-gradient(90deg, #FF3B30, transparent)`,
                         marginBottom: '2rem',
