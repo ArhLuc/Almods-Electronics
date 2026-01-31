@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // --- 1. CONSTANTS (Red/White Apple-Style Theme) ---
 const COLORS = {
@@ -351,16 +351,133 @@ const CustomStyles = () => (
             .advantage-icon svg { animation: floatIcon 4.5s ease-in-out infinite alternate; }
 
             /* Hide hero paragraph on mobile landscape */
-@media (max-width: 768px) and (orientation: landscape) {
-  .hero-decor-line,
-  .hero-desc,
+@media (max-width: 1024px) and (orientation: landscape) {
+  .hero-image-container {
+    height: 100vh !important;
+  }
+  .hero-overlay {
+    justify-content: center !important;
+    align-items: center !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65), rgba(0,0,0,0.48)) !important;
+    padding: 2rem 1.5rem !important;
+  }
+  .hero-overlay > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .hero-decor-line {
+    width: 100px !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #FF3B30, #FF6B5B, transparent) !important;
+    margin-bottom: 1.5rem !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4) !important;
+    animation: slideInLeft 0.8s ease-out 0.2s both !important;
+    display: none !important;
+  }
+  .hero-desc {
+    display: none !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin: 0 auto 1.5rem !important;
+    color: rgba(255,255,255,0.95) !important;
+    max-width: 90% !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+    background: rgba(0,0,0,0.2) !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+  }
   .hero-cta-row {
     display: none !important;
   }
   .hero-title {
-    font-size: 2.2rem !important;
+    font-size: 2.4rem !important;
     line-height: 1.1 !important;
     margin-bottom: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-weight: 900 !important;
+    text-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4) !important;
+    letter-spacing: -1px !important;
+    background: linear-gradient(135deg, #ffffff, #f0f0f0) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+  }
+}
+
+            /* Narrow portrait screens (450x950) - apply landscape-style enhanced hero */
+            @media (max-width: 450px) and (orientation: portrait) {
+  .hero-image-container {
+    height: 100vh !important;
+  }
+  .hero-overlay {
+    justify-content: center !important;
+    align-items: center !important;
+    background: #db070700 !important;
+    padding: 2rem 1.5rem !important;
+  }
+  .hero-overlay > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .hero-decor-line {
+    width: 100px !important;
+    height: 6px !important;
+    background: linear-gradient(90deg, #FF3B30, #FF6B5B, transparent) !important;
+    margin-bottom: 1.5rem !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4) !important;
+    animation: slideInLeft 0.8s ease-out 0.2s both !important;
+    display: none !important;
+  }
+  .hero-desc {
+    display: none !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    margin: 0 auto 1.5rem !important;
+    color: rgba(255,255,255,0.95) !important;
+    max-width: 90% !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px !important;
+    background: rgba(0,0,0,0.2) !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+  }
+  .hero-cta-row {
+    display: none !important;
+  }
+  .hero-title {
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 0.75rem !important;
+    margin-top: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.8px !important;
+    background-image: linear-gradient(135deg, rgb(29, 29, 31), rgb(255, 82, 82)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: none !important;
+    position: relative !important;
+    padding-bottom: 0.5rem !important;
   }
 }
 
@@ -464,10 +581,96 @@ const CustomStyles = () => (
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                /* Dark gradient overlay for text contrast and legibility */
-                background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.48));
+                /* Enhanced dark gradient overlay for better text contrast and readability */
+                background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55), rgba(0,0,0,0.38));
                 padding: 2rem 1rem;
+                backdrop-filter: blur(px);
             }
+            
+            /* Mobile vertical (portrait) - enhanced readability */
+            @media (max-width: 768px) and (orientation: portrait) {
+                .hero-overlay {
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.48)) !important;
+                    padding: 3rem 1.5rem !important;
+                    justify-content: center !important;
+                }
+                .hero-overlay > div {
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                .hero-title {
+                    font-size: 2.8rem !important;
+                    font-weight: 800 !important;
+                    margin-bottom: 0.75rem !important;
+                    margin-top: 0 !important;
+                    text-align: center !important;
+                    letter-spacing: -0.8px !important;
+                    font-style: oblique;
+                    line-height: 1.2 !important;
+                    background-image: linear-gradient(135deg, rgba(248, 81, 10, 1), rgba(244, 204, 8, 1)) !important;
+                    background-clip: text !important;
+                    -webkit-background-clip: text !important;
+                    -webkit-text-fill-color: transparent !important;
+                    text-shadow: none !important;
+                    position: relative !important;
+                    padding: 0rem 1.5rem 1rem 1.5rem !important;
+                    background-color: rgba(110, 192, 33, 0.3) !important;
+                  
+                   ;
+                }
+                .hero-decor-line {
+                    width: 100px !important;
+                    height: 6px !important;
+                    background: linear-gradient(90deg, #FF3B30, #FF6B5B, transparent) !important;
+                    margin-bottom: 2.5rem !important;
+                    border-radius: 4px !important;
+                    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4) !important;
+                    animation: slideInLeft 0.8s ease-out 0.2s both !important;
+                    display: block !important;
+                }
+                .hero-desc {
+                    display: block !important;
+                    font-size: 1.1rem !important;
+                    line-height: 1.8 !important;
+                    margin: 0 auto 2.5rem !important;
+                    color: rgba(255,255,255,0.95) !important;
+                    max-width: 100% !important;
+                    text-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+                    font-weight: 500 !important;
+                    letter-spacing: 0.3px !important;
+                    animation: fadeInUp 0.8s ease-out 0.3s both !important;
+                    background: rgba(0,0,0,0.2) !important;
+                    padding: 1.5rem !important;
+                    border-radius: 12px !important;
+                    backdrop-filter: blur(4px) !important;
+                    border: 1px solid rgba(255,255,255,0.1) !important;
+                }
+                .hero-desc strong {
+                    color: #FFB3B0 !important;
+                    font-weight: 700 !important;
+                    text-shadow: 0 3px 10px rgba(255, 59, 48, 0.4) !important;
+                }
+                .hero-cta-row {
+                    display: flex !important;
+                    gap: 1rem !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    flex-wrap: wrap !important;
+                    animation: fadeInUp 0.8s ease-out 0.5s both !important;
+                    position: relative !important;
+                    z-index: 10 !important;
+                    margin-top: 6.5rem !important;
+                    width: auto !important;
+                    max-width: none !important;
+                    padding: 0 !important;
+                    margin-left: auto !important;
+                    margin-right: auto !important;
+                }
+            }
+            
             .hero-wave { display: block; width: 100%; height: 80px; margin-top: -2px; }
 
             /* CTA outline button */
@@ -2124,6 +2327,11 @@ const App = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState('home');
     const [selectedProductId, setSelectedProductId] = useState(null);
+
+    // Scroll to top when page changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentPage]);
 
     const navItems = [
         { name: 'Home', page: 'home' },
