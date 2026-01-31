@@ -653,11 +653,13 @@ const CustomStyles = () => (
                 padding: 2rem 1rem;
                 backdrop-filter: blur(px);
             }
+                
             
             /* Mobile vertical (portrait) - enhanced readability */
             @media (max-width: 768px) and (orientation: portrait) {
                 .hero-overlay {
-                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.48)) !important;
+                    background: linear-gradient(180deg, rgb(255 251 251 / 45%), rgb(33 33 25 / 65%), rgb(255 255 255 / 48%)) !important;
+                    
                     padding: 3rem 1.5rem !important;
                     justify-content: center !important;
                 }
@@ -677,7 +679,7 @@ const CustomStyles = () => (
                     letter-spacing: -0.8px !important;
                     font-style: oblique;
                     line-height: 1.2 !important;
-                    background-image: linear-gradient(135deg, rgba(248, 81, 10, 1), rgba(244, 204, 8, 1)) !important;
+                    background-image: linear-gradient(135deg, rgba(248, 81, 10, 1), rgb(0 0 0)) !important;
                     background-clip: text !important;
                     -webkit-background-clip: text !important;
                     -webkit-text-fill-color: transparent !important;
@@ -952,7 +954,7 @@ const CustomStyles = () => (
                     grid-template-columns: repeat(1, 1fr);
                 }
                     .hero-overlay {
-  background: transparent !important;
+  background: transparent important;
 }
 
                 /* slightly larger grid on wider phones */
