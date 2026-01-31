@@ -350,6 +350,20 @@ const CustomStyles = () => (
             }
             .advantage-icon svg { animation: floatIcon 4.5s ease-in-out infinite alternate; }
 
+            /* Hide hero paragraph on mobile landscape */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-decor-line,
+  .hero-desc,
+  .hero-cta-row {
+    display: none !important;
+  }
+  .hero-title {
+    font-size: 2.2rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
             @media (max-width: 768px) {
                 /* Compact feature card visuals */
                 .feature-card-image {
@@ -1080,73 +1094,89 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
 
             {/* Text Overlay for visibility */}
             <div className="hero-overlay">
-                <div className="container">
-                    <div style={{
-                        animation: 'fadeInDown 0.8s ease-out'
-                    }}>
-                        <h2 className="hero-title" style={{
-                            fontWeight: '900',
-                            letterSpacing: '-2px',
-                            marginBottom: '1.5rem',
-                            lineHeight: '1.1',
-                            backgroundImage: `linear-gradient(135deg, #ffffff, #e0e0e0)`,
-                            backgroundClip: 'text',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            textShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                            position: 'relative'
-                        }}>
-                            NOW DEALS IN<br/>SOLAR PLANTS
-                        </h2>
-                    </div>
-
-                    {/* Decorative line */}
-                    <div style={{
-                        width: '83px',
-                        height: '5px',
-                        background: `linear-gradient(90deg, #FF3B30, transparent)`,
-                        marginBottom: '2rem',
-                        borderRadius: '3px',
-                        animation: 'slideInLeft 0.8s ease-out 0.2s both'
-                    }}></div>
-
-                    <p style={{ 
-                        fontSize: '1.3rem', 
-                        lineHeight: '1.8', 
-                        margin: '0 auto 2.5rem auto',
-                        color: COLORS.textLight, 
-                        maxWidth: '720px',
-                        textShadow: '0 3px 10px rgba(0, 0, 0, 0.4)',
-                        fontWeight: '500',
-                        letterSpacing: '0.3px',
-                        animation: 'fadeInUp 0.8s ease-out 0.3s both'
-                    }}>
-                        Safeguarding your systems with <strong style={{
-                            color: '#FF5252',
-                            fontWeight: '700',
-                            textShadow: '0 2px 8px rgba(255, 59, 48, 0.3)'
-                        }}>Almods Stabilizers, Servo & Solar Solutions</strong>—where performance meets uncompromised reliability and innovation.
-                    </p>
-
-                    {/* CTA Buttons with enhanced styling */}
-                    <div style={{ 
-                        display: 'flex', 
-                        gap: '1.5rem', 
-                        justifyContent: 'center', 
-                        alignItems: 'center',
-                        flexWrap: 'wrap',
-                        animation: 'fadeInUp 0.8s ease-out 0.5s both'
-                    }}>
-                     <button
-  onClick={() => setCurrentPage('products')}
-  className="cta-button"
->
-  ⚡ Discover Our Stabilizers
-</button>
-
-                        
-                    </div>
+              <div className="container">
+                <div style={{ animation: 'fadeInDown 0.8s ease-out' }}>
+                  <h2
+                    className="hero-title"
+                    style={{
+                      fontWeight: '900',
+                      letterSpacing: '-2px',
+                      marginBottom: '1.5rem',
+                      lineHeight: '1.1',
+                      backgroundImage: `linear-gradient(135deg, #ffffff, #e0e0e0)`,
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                      position: 'relative',
+                    }}
+                  >
+                    NOW DEALS IN<br />
+                    SOLAR PLANTS
+                  </h2>
                 </div>
+
+                {/* Decorative line - hide on mobile landscape */}
+                <div
+                  className="hero-decor-line"
+                  style={{
+                    width: '83px',
+                    height: '5px',
+                    background: `linear-gradient(90deg, #FF3B30, transparent)`,
+                    marginBottom: '2rem',
+                    borderRadius: '3px',
+                    animation: 'slideInLeft 0.8s ease-out 0.2s both',
+                  }}
+                ></div>
+
+                {/* Paragraph - hide on mobile landscape */}
+                <p
+                  className="hero-desc"
+                  style={{
+                    fontSize: '1.3rem',
+                    lineHeight: '1.8',
+                    margin: '0 auto 2.5rem auto',
+                    color: COLORS.textLight,
+                    maxWidth: '720px',
+                    textShadow: '0 3px 10px rgba(0, 0, 0, 0.4)',
+                    fontWeight: '500',
+                    letterSpacing: '0.3px',
+                    animation: 'fadeInUp 0.8s ease-out 0.3s both',
+                  }}
+                >
+                  Safeguarding your systems with{' '}
+                  <strong
+                    style={{
+                      color: '#FF5252',
+                      fontWeight: '700',
+                      textShadow: '0 2px 8px rgba(255, 59, 48, 0.3)',
+                    }}
+                  >
+                    Almods Stabilizers, Servo & Solar Solutions
+                  </strong>
+                  —where performance meets uncompromised reliability and innovation.
+                </p>
+
+                {/* CTA Button - hide on mobile landscape */}
+                <div
+                  className="hero-cta-row"
+                  style={{
+                    display: 'flex',
+                    gap: '1.5rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    animation: 'fadeInUp 0.8s ease-out 0.5s both',
+                  }}
+                >
+                  <button
+                    onClick={() => setCurrentPage('products')}
+                    className="cta-button"
+                  >
+                    ⚡ Discover Our Stabilizers
+                  </button>
+                </div>
+              </div>
             </div>
         </div>
 
@@ -1326,7 +1356,7 @@ const ProductGridCard = ({ product, onExploreClick }) => (
         height: '100%',
         borderRadius: '20px',
         background: 'linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,250,250,0.99))',
-        boxShadow: '0 12px 40px rgba(0,0,0,0.08)',
+        boxShadow: '0 12px 40px rgba(255,59,48,0.08)',
         border: '1px solid rgba(255,59,48,0.08)',
         transition: 'all 300ms cubic-bezier(.2,.9,.2,1)',
         position: 'relative',
@@ -1929,7 +1959,7 @@ return (
                     <div style={{
                         fontSize: '0.85rem',
                         color: '#666',
-                        fontWeight: '600'
+                        marginTop: '0.25rem'
                     }}>Years Experience</div>
                 </div>
                 <div style={{
@@ -1947,7 +1977,7 @@ return (
                     <div style={{
                         fontSize: '0.85rem',
                         color: '#666',
-                        fontWeight: '600'
+                        marginTop: '0.25rem'
                     }}>Happy Customers</div>
                 </div>
                 <div style={{
@@ -1965,7 +1995,7 @@ return (
                     <div style={{
                         fontSize: '0.85rem',
                         color: '#666',
-                        fontWeight: '600'
+                        marginTop: '0.25rem'
                     }}>Product Ranges</div>
                 </div>
             </div>
@@ -2040,7 +2070,7 @@ const AboutPage = ({ setCurrentPage }) => (
                         <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Years of Experience</p>
                     </div>
                     <div>
-                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>10k+</div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>1000+</div>
                         <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Happy Customers</p>
                     </div>
                     <div>
