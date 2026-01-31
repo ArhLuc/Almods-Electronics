@@ -350,15 +350,15 @@ const CustomStyles = () => (
             }
             .advantage-icon svg { animation: floatIcon 4.5s ease-in-out infinite alternate; }
 
-            /* Hide hero paragraph on mobile landscape */
+/* 1024x768 landscape - show hero elements with 1180x20 styling */
 @media (max-width: 1024px) and (orientation: landscape) {
   .hero-image-container {
-    height: 100vh !important;
+    height: 55vh !important;
   }
   .hero-overlay {
     justify-content: center !important;
     align-items: center !important;
-    background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65), rgba(0,0,0,0.48)) !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55), rgba(0,0,0,0.38)) !important;
     padding: 2rem 1.5rem !important;
   }
   .hero-overlay > div {
@@ -369,48 +369,115 @@ const CustomStyles = () => (
     flex-direction: column !important;
   }
   .hero-decor-line {
-    width: 100px !important;
-    height: 6px !important;
-    background: linear-gradient(90deg, #FF3B30, #FF6B5B, transparent) !important;
-    margin-bottom: 1.5rem !important;
-    border-radius: 4px !important;
-    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.4) !important;
+    width: 83px !important;
+    height: 5px !important;
+    background: linear-gradient(90deg, #FF3B30, transparent) !important;
+    margin-bottom: 2rem !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
     animation: slideInLeft 0.8s ease-out 0.2s both !important;
-    display: none !important;
+    display: block !important;
   }
   .hero-desc {
-    display: none !important;
-    font-size: 1rem !important;
-    line-height: 1.6 !important;
-    margin: 0 auto 1.5rem !important;
-    color: rgba(255,255,255,0.95) !important;
-    max-width: 90% !important;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+    display: block !important;
+    font-size: 1.3rem !important;
+    line-height: 1.8 !important;
+    margin: 0 auto 2.5rem auto !important;
+    color: #ffffff !important;
+    max-width: 720px !important;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.4) !important;
     font-weight: 500 !important;
     letter-spacing: 0.3px !important;
-    background: rgba(0,0,0,0.2) !important;
-    padding: 1rem !important;
-    border-radius: 12px !important;
-    backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    border: none !important;
+  }
+  .hero-desc strong {
+    color: #FF5252 !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 8px rgba(255, 59, 48, 0.3) !important;
   }
   .hero-cta-row {
-    display: none !important;
+    display: flex !important;
+    gap: 1.5rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    animation: fadeInUp 0.8s ease-out 0.5s both !important;
   }
   .hero-title {
     font-size: 2.4rem !important;
     line-height: 1.1 !important;
-    margin-bottom: 0 !important;
-    margin: 0 !important;
-    width: 100% !important;
-    text-align: center !important;
+    margin-bottom: 1.5rem !important;
     font-weight: 900 !important;
-    text-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4) !important;
-    letter-spacing: -1px !important;
-    background: linear-gradient(135deg, #ffffff, #f0f0f0) !important;
+    text-align: center !important;
+    letter-spacing: -2px !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    background-image: linear-gradient(135deg, #ffffff, #e0e0e0) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
+    position: relative !important;
+  }
+}
+
+/* 932x430 landscape - show hero elements with 1180x20 styling */
+@media (max-width: 932px) and (orientation: landscape) {
+  .hero-image-container {
+    height: 55vh !important;
+  }
+  .hero-overlay {
+    justify-content: center !important;
+    align-items: center !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55), rgba(0,0,0,0.38)) !important;
+    padding: 2rem 1.5rem !important;
+  }
+  .hero-overlay > div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    flex-direction: column !important;
+  }
+  .hero-decor-line {
+    width: 83px !important;
+    height: 0px !important;
+    background: linear-gradient(90deg, #FF3B30, transparent) !important;
+    margin-bottom: 2rem !important;
+    border-radius: 3px !important;
+    box-shadow: none !important;
+    animation: slideInLeft 0.8s ease-out 0.2s both !important;
+    display: block !important;
+  }
+  
+  @media (max-width: 932px) and (orientation: landscape) {
+    .hero-desc {
+        display: none !important;
+    }
+}
+  .hero-cta-row {
+    display: flex !important;
+    gap: 1.5rem !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    animation: fadeInUp 0.8s ease-out 0.5s both !important;
+  }
+  .hero-title {
+    font-size: 2.4rem !important;
+    line-height: 7.1 !important;
+    margin-bottom: -1.3rem !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    letter-spacing: -2px !important;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    background-image: linear-gradient(135deg, #ffffff, #e0e0e0) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    position: relative !important;
   }
 }
 
