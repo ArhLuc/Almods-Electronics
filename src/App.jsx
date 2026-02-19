@@ -1542,15 +1542,15 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
                 <p style={{ color: COLORS.secondary, fontSize: '0.85rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: '0.5rem' }}>WHO WE ARE</p>
                 <h2 style={{ color: COLORS.primary, fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.3 }}>Almods Electronics</h2>
                 <p style={{ color: '#333', fontSize: '1rem', lineHeight: 1.7, marginBottom: '1.25rem' }}>
-                    34+ years of innovation and excellence in electrical solutions. We manufacture industry-leading voltage stabilizers, inverters, and solar solutions trusted by thousands across India.
+                        61+ years of innovation and excellence in electrical solutions. We manufacture industry-leading voltage stabilizers, inverters, and solar solutions trusted by thousands across India.
                 </p>
                 <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem' }}>
                     <div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}>34+</div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}> 61+</div>
                         <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Years</p>
                     </div>
                     <div>
-                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}>10k+</div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: 800, color: COLORS.secondary }}>120,000+</div>
                         <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Customers</p>
                     </div>
                 </div>
@@ -2206,7 +2206,7 @@ return (
                 marginBottom: '1.5rem',
                 fontWeight: '500'
             }}>
-                With 34+ years of innovation and excellence, Almods Electronics has become the trusted name in voltage stabilization across India. We're committed to delivering premium electrical solutions engineered for reliability and performance.
+                With 61+ years of innovation and excellence, Almods Electronics has become the trusted name in voltage stabilization across India. We're committed to delivering premium electrical solutions engineered for reliability and performance.
             </p>
 
             {/* Highlights Grid */}
@@ -2227,7 +2227,7 @@ return (
                         fontWeight: '800',
                         color: COLORS.primary,
                         marginBottom: '0.25rem'
-                    }}>34+</div>
+                    }}>61+</div>
                     <div style={{
                         fontSize: '0.85rem',
                         color: '#666',
@@ -2245,7 +2245,7 @@ return (
                         fontWeight: '800',
                         color: COLORS.primary,
                         marginBottom: '0.25rem'
-                    }}>1000+</div>
+                    }}>120,000+</div>
                     <div style={{
                         fontSize: '0.85rem',
                         color: '#666',
@@ -2286,7 +2286,7 @@ const AboutPage = ({ setCurrentPage }) => (
         <div style={{ background: `linear-gradient(180deg, ${COLORS.primary}, #2a2a2e)`, color: COLORS.textLight, padding: '4rem 1rem', textAlign: 'center' }}>
             <div className="container">
                 <h1 style={{ fontSize: '3.2rem', fontWeight: 800, marginBottom: '1rem', lineHeight: 1.2, animation: 'fadeInDown 0.8s ease-out' }}>About Almods Electronics</h1>
-                <p style={{ fontSize: '1.1rem', opacity: 0.9, maxWidth: '700px', margin: '0 auto', animation: 'fadeInUp 0.8s ease-out 0.2s both' }}>Empowering India with 34+ years of excellence in electrical solutions</p>
+                <p style={{ fontSize: '1.1rem', opacity: 0.9, maxWidth: '700px', margin: '0 auto', animation: 'fadeInUp 0.8s ease-out 0.2s both' }}>Empowering India with <srong>61+ years of generational</srong> excellence in electrical solutions</p>
             </div>
         </div>
 
@@ -2296,7 +2296,7 @@ const AboutPage = ({ setCurrentPage }) => (
             <div style={{ maxWidth: '900px', margin: '0 auto 3rem', lineHeight: 1.8, animation: 'fadeInUp 0.8s ease-out 0.3s both' }}>
                 <h2 style={{ color: COLORS.primary, fontSize: '2rem', fontWeight: 800, marginBottom: '1rem' }}>Who We Are</h2>
                 <p style={{ fontSize: '1.05rem', color: '#333', marginBottom: '1rem' }}>
-                    Almods Electronics is a leading manufacturer of Automatic Voltage Stabilizers, Servo Voltage Stabilizers, Inverters, Batteries, and Solar Solutions. With over 45 years of experience, we have been committed to delivering high-quality, reliable, and efficient electrical solutions to our valued customers.
+                    Almods Electronics is a leading manufacturer of Automatic Voltage Stabilizers, Servo Voltage Stabilizers, Inverters, Batteries, and Solar Solutions. Backed by <strong>61+ years of combined generational</strong> experience, we are committed to delivering high-quality, reliable, and efficient electrical solutions to our customers.
                 </p>
                 <p style={{ fontSize: '1.05rem', color: '#333' }}>
                     Our manufacturing unit is located in Lucknow, equipped with state-of-the-art machinery and testing facilities to ensure that every product meets stringent quality standards.
@@ -2338,11 +2338,11 @@ const AboutPage = ({ setCurrentPage }) => (
             <div style={{ background: `linear-gradient(90deg, ${COLORS.primary}, #2a2a2e)`, color: COLORS.textLight, padding: '3rem', borderRadius: '16px', textAlign: 'center', marginBottom: '3rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '2rem' }}>
                     <div>
-                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>34+</div>
-                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Years of Experience</p>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>61+</div>
+                        <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Years of Experience Across Generations</p>
                     </div>
                     <div>
-                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>1000+</div>
+                        <div style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '0.5rem' }}>120,000+</div>
                         <p style={{ fontSize: '0.95rem', opacity: 0.9 }}>Happy Customers</p>
                     </div>
                     <div>
