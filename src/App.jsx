@@ -42,7 +42,7 @@ const productsData = [
         dimension: "300 x 200 x 150 mm",
         application: "1.5 & 2.0 Ton AC Unit (Extreme Low Voltage) - Specifically engineered for high-tonnage air conditioning units operating in areas with severe voltage drops, ensuring compressor safety.",
         workingRange: "80V - 300V",
-        image: '/images/c6894c5a-f716-4b5d-9c03-34108804a15b.JPG',
+        image: '/images/IMG_3660.jpg',
         feature: 'EXTREME LOW VOLTAGE PERFORMANCE: Guarantees air conditioner operation even at 80V, preventing costly compressor failure. **Wall-Mountable Sleek Design** with high-efficiency transformer windings for minimal power loss. Features high-speed voltage cutoff for surge protection.'
     },
     { 
@@ -53,7 +53,7 @@ const productsData = [
         dimension: "300 x 200 x 150 mm",
         application: "1.5 & 2.0 Ton AC Unit (Standard Voltage) - Ideal for stabilizing AC units where voltage fluctuations are moderate, maintaining optimal cooling performance and efficiency.",
         workingRange: "150V - 280V",
-        image: '/images/077bdc12-0c12-47ed-8606-3474fb530b42.JPG',
+        image: '/images/IMG_3660.jpg',
         feature: 'STANDARD APPLICATION RELIABILITY: Designed for consistent performance in areas with moderate voltage fluctuations. Includes **Initial Time Delay** (ITD) to protect the AC compressor from frequent power cycles. Compact housing for easy installation near the appliance.'
     },
     { 
@@ -64,7 +64,7 @@ const productsData = [
         dimension: "280 x 180 x 120 mm",
         application: "1.5 Ton AC Unit (Mid Voltage Fluctuation) - A focused solution for 1.5-ton units, providing protection in environments with predictable but persistent voltage swings.",
         workingRange: "120V - 290V",
-        image: 'public/images/new AC 120V-290V copy.PNG',
+        image: '/images/image copy 3.png',
         feature: 'MID-RANGE STABILITY: Provides reliable voltage correction from 120V up. **Sleek LED Status Indicators** for monitoring power status. Engineered with robust internal components for extended operational lifespan and low-noise performance.'
     },
     { 
@@ -75,7 +75,7 @@ const productsData = [
         dimension: "350 x 220 x 160 mm",
         application: "1.5 & 2.0 Ton AC Unit (Narrow Range) - Designed for locations with generally stable grid power but requiring precise regulation within a tighter voltage band.",
         workingRange: "160V - 280V",
-        image: 'public/images/new xAC 160V-280V copy.PNG',
+        image: '/images/077bdc12-0c12-47ed-8606-3474fb530b42.JPG',
         feature: 'PRECISE REGULATION: Focuses on tight voltage control within a narrower input range for highly sensitive electronics. Features **Auto-Reset Functionality** after power cuts, restoring operation safely. High-grade metal casing for superior durability and heat dissipation.'
     },
     { 
@@ -102,21 +102,21 @@ const productsData = [
     },{ 
         id: 'av1kk', 
         name: 'SERVO VOLTAGE STABILIZER Air Cooled', 
-        detail: 'Servo Voltage stabilzer Air cooled', 
-        modelName: "AV-1K-FR",
-        dimension: "250 x 150 x 100 mm",
+        detail: 'Servo Voltage Stabilzer Air Cooled', 
+       modelName: "---",
+        dimension: "Depends on Customer requirement",
         application: "An air-cooled servo voltage stabilizer is widely used in industries and commercial setups to protect electrical and electronic equipment from voltage fluctuations. It is commonly applied in CNC machines, PLC panels, medical equipment, laboratories, printing and packaging machines, IT infrastructure such as servers and networking systems, and commercial buildings. It is especially suitable for small to medium industrial loads where stable and precise voltage regulation is required without the need for oil-based cooling.",
-        workingRange: "130V - 290V",
+        workingRange: "Depends on Customer requirement",
         image: '/images/Almods-Servo-Voltage-Stabilizer-Air-Cooled-5KVA-–-30KVAServo-Voltage-Stablizer-Air-Cooled-5KVA-–-30KVA-3.webp',
         feature: 'The key features of an air-cooled servo voltage stabilizer include high accuracy voltage regulation, typically within ±1%, achieved using a servo motor and buck-boost transformer mechanism. Its air-cooled design makes it compact, lightweight, and low maintenance, as no insulating oil is required. The stabilizer offers fast correction speed, ensuring safe operation of sensitive equipment during sudden voltage variations.'
     },{ 
         id: 'av1kkk', 
         name: 'SERVO VOLTAGE STABILIZER Oil Cooled', 
-        detail: 'Servo Voltage stabilzer oil cooled', 
-        modelName: "AV-1K-FR",
-        dimension: "250 x 150 x 100 mm",
+        detail: 'Servo Voltage Stabilzer Oil Cooled', 
+        modelName: "---",
+        dimension: "Depends on Customer requirement",
         application: " oil-cooled servo voltage stabilizer is mainly used for heavy-duty and high-capacity applications where large power loads and continuous operation are required. It is commonly installed in large manufacturing plants, heavy machinery units, CNC and VMC machines, elevators, power distribution panels, hospitals, data centers, and large commercial or industrial complexes.",
-        workingRange: "130V - 290V",
+        workingRange: "Depends on Customer requirement",
         image: '/images/Almods-Servo-Voltage-Stabilizer-Oil-Cooled-15KVA-–-500KVA-3-Phase-ON-ORDER_ON-DEMAND-2-2 (1).webp',
         feature: 'The key features of an oil-cooled servo voltage stabilizer include high load-handling capability and excellent thermal performance due to transformer oil cooling. It provides precise voltage regulation, usually within ±1%, using a servo motor-controlled buck-boost transformer.'
     },
