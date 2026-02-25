@@ -2052,7 +2052,7 @@ const sendToWhatsApp = (e) => {
 
     if (!validateForm()) return;
 
-    const whatsappNumber = "919876543210";
+    const whatsappNumber = "917081824365";
 
     const finalLocation = location === "Other" ? customLocation : location;
 
