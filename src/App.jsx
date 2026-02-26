@@ -78,17 +78,7 @@ const productsData = [
         image: '/images/077bdc12-0c12-47ed-8606-3474fb530b42.JPG',
         feature: 'PRECISE REGULATION: Focuses on tight voltage control within a narrower input range for highly sensitive electronics. Features **Auto-Reset Functionality** after power cuts, restoring operation safely. High-grade metal casing for superior durability and heat dissipation.'
     },
-    { 
-        id: 'servo30a', 
-        name: 'STABILIZER FOR 1.5 & 2.0 TON AC WORKING RANGE:80V-300V', 
-        detail: 'WORKING RANGE OF AS8D400: 80V-300V (ENSURES FUNCTIONING UNDER WIDE VOLTAGE RANGE)', 
-        modelName: "Servo-30A-V",
-        dimension: "550 x 400 x 250 mm",
-        application: "1.5 & 2.0 Ton AC Unit (Servo Grade Protection) - Utilizing advanced servo motor technology for near-instantaneous voltage correction, offering the highest level of stability for critical cooling systems.",
-        workingRange: "80V - 300V",
-        image: '/images/AC 80V-300V copy.png',
-        feature: 'SERVO-ASSISTED CORRECTION: Uses a powerful servo motor for **near-zero-delay voltage regulation**. Ideal for industrial or laboratory-grade applications demanding continuous, perfect voltage supply. Includes an analog meter for real-time voltage monitoring.'
-    },
+ 
     { 
         id: 'av1k', 
         name: 'STABILIZER FOR REFRIGERATOR AND DEEP FREEZER', 
