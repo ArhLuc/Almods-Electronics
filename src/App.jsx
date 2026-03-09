@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, useNavigate, useLocation, useParams } from 'react-router-dom';
 
 // --- 1. CONSTANTS (Red/White Apple-Style Theme) ---
 const COLORS = {
@@ -1175,9 +1176,28 @@ const CustomStyles = () => (
 );
 
 // --- 3. HEADER COMPONENT (White Background) ---
-const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPage }) => {
-    const handleNavClick = (page) => {
-        setCurrentPage(page);
+const Header = ({ isMenuOpen, setIsMenuOpen }) => {
+    const location = useLocation();
+    
+    // Map pathname to page names
+    const getPageFromPath = () => {
+        const path = location.pathname;
+        if (path === '/') return 'home';
+        if (path.startsWith('/products')) return 'products';
+        if (path === '/about') return 'about';
+        if (path === '/contact') return 'contact';
+        return 'home';
+    };
+    
+    const currentPage = getPageFromPath();
+    const navItems = [
+        { name: 'Home', path: '/' },
+        { name: 'Products', path: '/products' },
+        { name: 'Contact', path: '/contact' },
+        { name: 'About', path: '/about' },
+    ];
+
+    const handleNavClick = () => {
         setIsMenuOpen(false); // Close menu on mobile after click
     };
 
@@ -1203,20 +1223,21 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
             }}>
                 
                 {/* LOGO */}
-                <img 
-                    src="/images/almodslogo.png"
-                    alt="Almods Electronics Logo"
-                    onClick={() => setCurrentPage('home')}
-                    className="header-logo"
-                    style={{
-                        width: 'auto',
-                        maxWidth: '100%',
-                        height: '50px',
-                        margin: 0,
-                        cursor: 'pointer',
-                        transition: 'transform 200ms ease'
-                    }}
-                />
+                <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                    <img 
+                        src="/images/almodslogo.png"
+                        alt="Almods Electronics Logo"
+                        className="header-logo"
+                        style={{
+                            width: 'auto',
+                            maxWidth: '100%',
+                            height: '50px',
+                            margin: 0,
+                            cursor: 'pointer',
+                            transition: 'transform 200ms ease'
+                        }}
+                    />
+                </Link>
                 
                 {/* Mobile Menu Icon */}
                 <div
@@ -1243,53 +1264,54 @@ const Header = ({ isMenuOpen, setIsMenuOpen, navItems, setCurrentPage, currentPa
                     {/* Mobile tiles integrated into the same nav overlay for quick navigation */}
                     <div className={`nav-mobile-grid ${isMenuOpen ? 'open' : ''}`} aria-hidden={!isMenuOpen} style={{ width: '100%', padding: '0 1rem' }}>
                         {navItems.map((item) => (
-                            <div
-                                key={`mobile-${item.page}`}
+                            <Link
+                                key={`mobile-${item.name}`}
+                                to={item.path}
+                                onClick={handleNavClick}
                                 className="nav-mobile-item"
-                                onClick={() => handleNavClick(item.page)}
-                                role="button"
-                                aria-label={item.name}
-                                tabIndex={0}
-                                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNavClick(item.page); } }}
+                                style={{ textDecoration: 'none', color: 'inherit' }}
                             >
                                 <span className="sr-only">{item.name}</span>
-                            </div>
+                            </Link>
                         ))}
                     </div>
 
-                    {navItems.map((item) => (
-                        <a
-                            key={item.name}
-                            onClick={() => handleNavClick(item.page)}
-                            className={`nav-item ${currentPage === item.page ? 'active' : ''}`}
-                            style={{
-                                color: currentPage === item.page ? COLORS.secondary : COLORS.textDark,
-                                textDecoration: 'none',
-                                fontWeight: currentPage === item.page ? '700' : '500',
-                                padding: '0.5rem 1rem',
-                                borderRadius: '8px',
-                                transition: 'all 200ms ease',
-                                cursor: 'pointer',
-                                position: 'relative',
-                                fontSize: '0.95rem',
-                                whiteSpace: 'nowrap'
-                            }}
-                        >
-                            {item.name}
-                            {currentPage === item.page && (
-                                <div style={{
-                                    position: 'absolute',
-                                    bottom: '-8px',
-                                    left: '1rem',
-                                    right: '1rem',
-                                    height: '3px',
-                                    background: COLORS.secondary,
-                                    borderRadius: '2px',
-                                    animation: 'slideIn 200ms ease'
-                                }}/>
-                            )}
-                        </a>
-                    ))}
+                    {navItems.map((item) => {
+                        const isActive = currentPage === (item.name.toLowerCase() === 'home' ? 'home' : item.name.toLowerCase());
+                        return (
+                            <Link
+                                key={item.name}
+                                to={item.path}
+                                onClick={handleNavClick}
+                                className={`nav-item ${isActive ? 'active' : ''}`}
+                                style={{
+                                    color: isActive ? COLORS.secondary : COLORS.textDark,
+                                    textDecoration: 'none',
+                                    fontWeight: isActive ? '700' : '500',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '8px',
+                                    transition: 'all 200ms ease',
+                                    position: 'relative',
+                                    fontSize: '0.95rem',
+                                    whiteSpace: 'nowrap'
+                                }}
+                            >
+                                {item.name}
+                                {isActive && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '-8px',
+                                        left: '1rem',
+                                        right: '1rem',
+                                        height: '3px',
+                                        background: COLORS.secondary,
+                                        borderRadius: '2px',
+                                        animation: 'slideIn 200ms ease'
+                                    }}/>
+                                )}
+                            </Link>
+                        );
+                    })}
                 </nav>
             </div>
         </header>
@@ -1354,8 +1376,10 @@ const AdvantagePoint = ({ icon, title, description }) => (
     </div>
 );
 
-
-const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
+const HomePage = () => {
+    const navigate = useNavigate();
+    
+    return (
     <div>
         {/* --- Hero Section: Full-Width Image with Text Overlay --- */}
         <div className="hero-image-container">
@@ -1452,7 +1476,7 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
                   }}
                 >
                   <button
-                    onClick={() => setCurrentPage('products')}
+                    onClick={() => navigate('/products')}
                     className="cta-button"
                   >
                     ⚡ Discover Our Stabilizers
@@ -1519,26 +1543,26 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
       title={productsData[2].name}
       description={productsData[2].detail}
       image={productsData[2].image}
-      onSelect={() => { setSelectedProductId(productsData[2].id); setCurrentPage('product'); }}
+      onSelect={() => navigate(`/products/${productsData[2].id}`)}
     />
 
     <FeatureProductCard
       title={productsData[4].name}
       description={productsData[4].detail}
       image={productsData[4].image}
-      onSelect={() => { setSelectedProductId(productsData[4].id); setCurrentPage('product'); }}
+      onSelect={() => navigate(`/products/${productsData[4].id}`)}
     />
 
     <FeatureProductCard
       title={productsData[5].name}
       description={productsData[5].detail}
       image={productsData[5].image}
-      onSelect={() => { setSelectedProductId(productsData[5].id); setCurrentPage('product'); }}
+      onSelect={() => navigate(`/products/${productsData[5].id}`)}
     />
   </div>
 
   <div style={{ textAlign: 'center', marginTop: '2.25rem' }}>
-    <button onClick={() => setCurrentPage('products')} className="button-outline">View All Products</button>
+    <button onClick={() => navigate('/products')} className="button-outline">View All Products</button>
   </div>
 
 </div>
@@ -1564,7 +1588,7 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
                         <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '0.25rem' }}>Customers</p>
                     </div>
                 </div>
-                <button onClick={() => setCurrentPage('about')} className="button" style={{ fontSize: '0.98rem' }}>Learn More About Us</button>
+                <button onClick={() => navigate('/about')} className="button" style={{ fontSize: '0.98rem' }}>Learn More About Us</button>
             </div>
 
             {/* Right: Visual Card with Stats */}
@@ -1626,7 +1650,8 @@ const HomePage = ({ setCurrentPage, setSelectedProductId }) => (
             </div>
         </div> 
     </div>
-);
+    );
+};
 
 // Component for displaying a single product in the grid
 const ProductGridCard = ({ product, onExploreClick }) => (
@@ -1724,7 +1749,8 @@ const ProductGridCard = ({ product, onExploreClick }) => (
 );
 
 // Component for the single product detail view
-const ProductDetails = ({ product, onBackClick, setCurrentPage }) => {
+const ProductDetails = ({ product, onBackClick }) => {
+    const navigate = useNavigate();
     // Define the specifications to display and their display names
     const specsToDisplay = [
         { label: "Product Highlight", key: "detail" }, // Full-width, high-impact feature
@@ -1801,7 +1827,7 @@ const ProductDetails = ({ product, onBackClick, setCurrentPage }) => {
                         
                         {/* Moved CTA Button here for immediate visibility */}
                         <button className="button"
-                         onClick={() => setCurrentPage('contact')}
+                         onClick={() => navigate('/contact')}
                           style={{ fontSize: '1.2rem' }}>
                             Contact Us &rarr;
                         </button>
@@ -1880,6 +1906,67 @@ const ProductDetails = ({ product, onBackClick, setCurrentPage }) => {
 };
 
 
+const ProductsPageWrapper = () => {
+    const navigate = useNavigate();
+
+    const handleExploreClick = (product) => {
+        navigate(`/products/${product.id}`);
+    };
+
+    return (
+        <div className="container" style={{ padding: '6rem 0.5rem 4rem' }}>
+            <h2 style={{ 
+                color: COLORS.primary, 
+                fontSize: '3.2rem', 
+                marginBottom: '0.75rem',
+                marginTop: 0,
+                textAlign: 'center', 
+                fontWeight: '800',
+                letterSpacing: '-0.8px',
+                backgroundImage: `linear-gradient(135deg, ${COLORS.primary}, #FF5252)`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'fadeInDown 0.8s ease-out'
+            }}>
+                All Almods Stabilizers
+            </h2>
+            <div style={{
+                width: '60px',
+                height: '4px',
+                background: `linear-gradient(90deg, ${COLORS.primary}, transparent)`,
+                margin: '0 auto 2rem',
+                borderRadius: '2px',
+                animation: 'slideInLeft 0.8s ease-out 0.2s both'
+            }}></div>
+            <p style={{
+                textAlign: 'center',
+                color: '#888',
+                fontSize: '1.05rem',
+                marginBottom: 0,
+                maxWidth: '560px',
+                margin: '0 auto 3.5rem',
+                fontWeight: '500',
+                letterSpacing: '0.3px',
+                animation: 'fadeInUp 0.8s ease-out 0.3s both'
+            }}>
+                Discover our complete range of precision voltage stabilizers engineered for maximum reliability
+            </p>
+            
+            {/* Displaying the 8 specific product cards */}
+            <div className="card-grid">
+                {productsData.map((product) => (
+                    <ProductGridCard
+                        key={product.id}
+                        product={product}
+                        onExploreClick={handleExploreClick}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const ProductsPage = ({ setCurrentPage, productsData, selectedProductId, setSelectedProductId }) => {
     // Local selected product is derived from global selectedProductId
     const [selectedProduct, setSelectedProduct] = useState(() => selectedProductId ? productsData.find(p => p.id === selectedProductId) : null);
@@ -1911,7 +1998,7 @@ const ProductsPage = ({ setCurrentPage, productsData, selectedProductId, setSele
 
     // Conditional Rendering: Show details or show grid
     if (selectedProduct) {
-        return <ProductDetails product={selectedProduct} onBackClick={handleBackClick} setCurrentPage={setCurrentPage} />;
+        return <ProductDetails product={selectedProduct} onBackClick={handleBackClick} />;
     }
     
     return (
@@ -2290,7 +2377,10 @@ return (
 
 
 
-const AboutPage = ({ setCurrentPage }) => (
+const AboutPage = () => {
+    const navigate = useNavigate();
+    
+    return (
     <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #fafbff, #ffffff)' }}>
         {/* Hero Section */}
         <div style={{ background: `linear-gradient(180deg, ${COLORS.primary}, #2a2a2e)`, color: COLORS.textLight, padding: '4rem 1rem', textAlign: 'center' }}>
@@ -2369,55 +2459,36 @@ const AboutPage = ({ setCurrentPage }) => (
             {/* CTA */}
             <div style={{ textAlign: 'center' }}>
                 <h3 style={{ color: COLORS.primary, fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem' }}>Ready to Experience Excellence?</h3>
-                <button onClick={setCurrentPage ? () => setCurrentPage('products') : null} className="button" style={{ fontSize: '1.05rem' }}>Explore Our Products</button>
+                <button onClick={() => navigate('/products')} className="button" style={{ fontSize: '1.05rem' }}>Explore Our Products</button>
             </div>
         </div>
     </div>
-);
-
-const PageRouter = ({ currentPage, setCurrentPage, selectedProductId, setSelectedProductId, productsData }) => {
-    switch (currentPage) {
-        case 'home':
-        case 'stability':
-            return <HomePage setCurrentPage={setCurrentPage} setSelectedProductId={setSelectedProductId} />;
-        case 'product': {
-            const product = productsData.find(p => p.id === selectedProductId);
-            if (product) {
-                return <ProductDetails product={product} onBackClick={() => { setSelectedProductId(null); setCurrentPage('products'); }} setCurrentPage={setCurrentPage} />;
-            }
-            // If product not found, fall back to listing
-            return <ProductsPage setCurrentPage={setCurrentPage} productsData={productsData} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId} />;
-        }
-        case 'products':
-            return <ProductsPage setCurrentPage={setCurrentPage} productsData={productsData} selectedProductId={selectedProductId} setSelectedProductId={setSelectedProductId} />;
-        case 'about':
-            return <AboutPage setCurrentPage={setCurrentPage} />;
-        case 'contact':
-            return <ContactPage />;
-        default:
-            return <HomePage setCurrentPage={setCurrentPage} setSelectedProductId={setSelectedProductId} />;
-    }
+    );
 };
 
+// Wrapper component for product detail route
+const ProductPage = () => {
+    const navigate = useNavigate();
+    const { productId } = useParams();
+    const product = productsData.find(p => p.id === productId);
+
+    if (!product) {
+        return navigate('/products');
+    }
+
+    return <ProductDetails product={product} onBackClick={() => navigate('/products')} />;
+};
 
 // --- 7. MAIN APP COMPONENT ---
 
 const App = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [currentPage, setCurrentPage] = useState('home');
-    const [selectedProductId, setSelectedProductId] = useState(null);
 
-    // Scroll to top when page changes
+    // Scroll to top when location changes
+    const location = useLocation();
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [currentPage]);
-
-    const navItems = [
-        { name: 'Home', page: 'home' },
-        { name: 'Products', page: 'products' },
-        { name: 'Contact', page: 'contact' },
-        { name: 'About', page: 'about' },
-    ];
+    }, [location.pathname]);
 
     return (
         <div style={{ 
@@ -2434,21 +2505,18 @@ const App = () => {
             {/* Navigation */}
             <Header 
                 isMenuOpen={isMenuOpen} 
-                setIsMenuOpen={setIsMenuOpen} 
-                navItems={navItems} 
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
+                setIsMenuOpen={setIsMenuOpen}
             />
 
             <main style={{ flexGrow: 1 }}>
-                {/* Dynamically render the current page using the router */}
-                <PageRouter
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                selectedProductId={selectedProductId}
-                setSelectedProductId={setSelectedProductId}
-                productsData={productsData}
-                />
+                {/* Routes for multi-page routing */}
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/products" element={<ProductsPageWrapper />} />
+                    <Route path="/products/:productId" element={<ProductPage />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                </Routes>
             </main>
 
             <Footer />
